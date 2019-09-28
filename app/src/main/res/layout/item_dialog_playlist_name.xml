@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:id="@+id/playListDialogName"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginStart="10dp"
+        android:paddingStart="6dp"
+        tools:background="@color/colorPrimaryDark"
+        android:text="@string/add_to_playlist"
+        android:textColor="?textWithBackgroundColor"
+        android:layout_width="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" />
+

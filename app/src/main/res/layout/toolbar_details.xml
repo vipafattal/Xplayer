@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:paddingTop="30dp"
+        android:id="@+id/detailsAppbar"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:background="@color/white"
+        app:elevation="0dp">
+
+    <androidx.appcompat.widget.Toolbar
+            app:popupTheme="@style/popupMenu"
+            android:id="@+id/detailsToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:navigationIcon="@drawable/ic_logo_24dp"
+            >
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/titleDetailsToolbar"
+                    android:textStyle="normal"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@color/colorGrayItem"
+                    tools:text="@string/app_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </FrameLayout>
+    </androidx.appcompat.widget.Toolbar>
+</com.google.android.material.appbar.AppBarLayout>

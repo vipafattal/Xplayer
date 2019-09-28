@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:background="?colorPrimaryDark"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical">
+    <com.google.android.exoplayer2.ui.DefaultTimeBar
+            android:id="@id/exo_progress"
+            app:played_color="@color/colorAccent"
+            app:buffered_color="@color/colorLightTransparent"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"/>
+
+    <LinearLayout
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <!--    android:textColor="#C7BABA"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"-->
+
+        <TextView android:id="@id/exo_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:includeFontPadding="false"
+                android:textColor="#FFBEBEBE"/>
+
+        <Space
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@id/exo_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:includeFontPadding="false"
+                android:textColor="#FFBEBEBE"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="2.8">
+
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        <com.google.android.material.card.MaterialCardView
+                android:id="@id/exo_prev"
+                app:cardBackgroundColor="#66FFFFFF"
+                app:cardCornerRadius="12.5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:rotation="45">
+
+            <ImageView
+                    app:srcCompat="@drawable/ic_skip_previous"
+                    android:layout_width="@dimen/player_button_size"
+                    android:layout_height="@dimen/player_button_size"
+                    android:layout_gravity="center"
+                    android:rotation="-45"
+                    android:tint="#FFF" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4" />
+
+        <com.google.android.material.card.MaterialCardView
+                android:id="@+id/playPauseButton"
+                app:cardBackgroundColor="@color/colorAccent"
+                app:cardCornerRadius="20dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:rotation="45">
+
+            <ImageView
+                    android:id="@+id/iconPlayPause"
+                    app:srcCompat="@drawable/ic_pause"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:rotation="-45" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4" />
+
+        <com.google.android.material.card.MaterialCardView
+                android:id="@id/exo_next"
+                app:cardBackgroundColor="#66FFFFFF"
+                app:cardCornerRadius="12.5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:rotation="45">
+
+            <ImageView
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_skip_next"
+                    android:layout_width="@dimen/player_button_size"
+                    android:layout_height="@dimen/player_button_size"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:rotation="-45"
+                    android:tint="#FFFFFFFF" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>
+
+

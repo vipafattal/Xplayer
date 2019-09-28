@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <include layout="@layout/toolbar_details" />
+
+    <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollViewReciterDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                tools:context=".ui.recitersList.TruckListFragment">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="10dp">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:id="@+id/reciterDetailsName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/hello_blank_fragment"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/reciter"
+                            android:textColor="@color/colorAccentLight" />
+
+
+                </LinearLayout>
+
+                <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                <com.github.florent37.shapeofview.shapes.RoundRectView
+                        android:layout_width="75dp"
+                        android:layout_height="80dp"
+                        android:elevation="5dp"
+                        app:shape_roundRect_bottomLeftRadius="@dimen/radiusIconReciter"
+                        app:shape_roundRect_bottomRightRadius="@dimen/radiusIconReciter"
+                        app:shape_roundRect_topLeftRadius="@dimen/radiusIconReciter"
+                        app:shape_roundRect_topRightRadius="@dimen/radiusIconReciter"
+                        tools:targetApi="lollipop">
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@drawable/radio_background"
+                            android:tint="@color/white"
+                            app:srcCompat="@drawable/ic_reciter_logo" />
+                </com.github.florent37.shapeofview.shapes.RoundRectView>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recitersDetailsRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="#ECEFF1"
+                    android:isScrollContainer="false"
+                    android:layoutAnimation="@anim/layout_animation_fall_down"
+                    android:minHeight="800dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:spanCount="2"
+                    tools:layoutAnimation="@null"
+                    tools:listitem="@layout/item_truck" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

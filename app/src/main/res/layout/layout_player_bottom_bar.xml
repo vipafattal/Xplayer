@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:tools="http://schemas.android.com/tools" app:cardCornerRadius="0dp"
+        android:layout_width="match_parent"
+        android:paddingBottom="56dp"
+        android:layout_gravity="bottom"
+        android:layout_height="@dimen/bottom_action_bar_height"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+            android:gravity="center"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="9dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+        <ImageView
+                android:clickable="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:tint="@color/colorAccentLight"
+                app:srcCompat="@drawable/ic_star"
+                android:layout_width="@dimen/iconButtonSize"
+                android:padding="5dp"
+                android:layout_height="@dimen/iconButtonSize"
+               android:focusable="true"/>
+
+        <LinearLayout
+                android:layout_marginStart="20dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+            <TextView
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:text="Mahari Alafasy:Al-Baqra"
+                    android:id="@+id/playBarTitle"
+                    android:layout_marginTop="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/playBarSubtitle"
+                    android:textColor="#C7BABA"
+                    android:textStyle="normal"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    tools:text="7 min left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <Space
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:id="@+id/playBarPlayButton"
+                android:clickable="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:tint="@color/colorAccentLight"
+                app:srcCompat="@drawable/ic_pause"
+                android:layout_width="@dimen/iconButtonSize"
+                android:padding="@dimen/iconButtonPadding"
+                android:layout_height="@dimen/iconButtonSize"
+                android:focusable="true"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

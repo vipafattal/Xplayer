@@ -1,0 +1,69 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorControlNormal">@color/colorGrayItem</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorBackgroundToast">#E6121314</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="android:textColorSecondary">#E5E5E5</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="dividerColor">#66707070</item>
+
+        <item name="android:textColorPrimary">#000</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="textWithBackgroundColor">#fff</item>
+    </style>
+
+
+    <style name="AppTheme2" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorControlNormal">@color/colorGrayItem</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorBackgroundToast">#E6121314</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="android:textColorSecondary">#E5E5E5</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="dividerColor">#66707070</item>
+
+        <item name="android:textColorPrimary">#000</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="textWithBackgroundColor">#fff</item>
+    </style>
+
+    <style name="popupMenu" parent="AppTheme">
+        <item name="android:textColorPrimary">#FFFFFF</item>
+    </style>
+
+    <style name="TabText" parent="AppTheme">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/background_rounded_top</item>
+    </style>
+
+
+</resources>

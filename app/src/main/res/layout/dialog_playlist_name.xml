@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minWidth="350dp"
+        app:cardBackgroundColor="?colorPrimaryDark"
+        app:cardCornerRadius="@dimen/dialog_radius">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="350dp"
+            android:orientation="vertical"
+            android:padding="25dp"
+            tools:ignore="RtlSymmetry">
+
+        <TextView
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="50dp"
+                android:text="Playlist name"
+                android:textColor="@color/white" />
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="12dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="@dimen/input_text_radius"
+                app:boxCornerRadiusBottomStart="@dimen/input_text_radius"
+                app:boxCornerRadiusTopEnd="@dimen/input_text_radius"
+                app:boxCornerRadiusTopStart="@dimen/input_text_radius"
+                app:boxStrokeColor="@color/white"
+                app:hintTextColor="?android:textColorSecondary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/playlistNameInput"
+                    android:layout_width="match_parent"
+                    android:lines="1"
+                    android:layout_height="match_parent"
+                    android:hint="@string/name"
+                    android:maxLines="1"
+                    tools:text="@string/app_name"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textColor="@color/colorAccent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+                android:id="@+id/playlistButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancelPlayListButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:textColor="@color/white"
+                    android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:backgroundTint="@android:color/transparent"
+                    app:strokeColor="@color/white" />
+
+            <Space
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content" />
+
+            <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/savePlayListButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/save"
+                        android:textColor="?colorPrimaryDark"
+                        app:backgroundTint="@color/white" />
+
+                <ProgressBar
+                        android:id="@+id/creatingListProgress"
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:elevation="3dp"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/colorAccentLight"
+                        android:visibility="gone"
+                        tools:targetApi="lollipop" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        app:behavior_hideable="true"
+        app:cardCornerRadius="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+
+        <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Playlist name"
+                    android:textColor="@color/white" />
+
+            <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/newPlayListButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_item"
+                    android:textColor="@color/colorAccent"
+                    app:cornerRadius="10dp"
+                    app:icon="@drawable/ic_add"
+                    app:iconGravity="end"
+                    app:iconTint="@color/colorAccent" />
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/playListSelectionRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearLayout"
+                tools:listitem="@layout/item_dialog_playlist_name" />
+    </LinearLayout>
+
+    <ProgressBar
+            android:id="@+id/playListLoading"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="@dimen/normal_progressbar_size"
+            android:layout_height="@dimen/normal_progressbar_size"
+            android:layout_gravity="center"
+            android:elevation="3dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorAccentLight"
+            android:visibility="visible"
+            tools:targetApi="lollipop" />
+
+</FrameLayout>

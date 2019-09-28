@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.abed.xplayer.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        app:dragView="@id/firstPanelDragArea"
+        app:panelHeight="@dimen/bottom_action_bar_height"
+        app:shadowHeight="@dimen/sliding_panel_shadow_height"
+        app:slidePanelOffset="@dimen/bottom_action_bar_height"
+        tools:context=".ui.MainActivity">
+    <!--android:background="#FAC5CA"-->
+    <FrameLayout
+            android:id="@+id/fragmentHost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+                android:overScrollMode="never"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:descendantFocusability="beforeDescendants"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical">
+
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/navigation_bar_size" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/mainNavigationPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?android:colorBackground" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar"
+                android:orientation="vertical"
+                app:elevation="0dp"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp">
+
+            <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabsMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/navigation_bar_size"
+                    android:background="#fff"
+                    app:tabGravity="fill"
+                    app:tabPaddingTop="18dp"
+                    app:tabPaddingEnd="8dp"
+                    app:tabIndicatorColor="@android:color/transparent"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@color/colorLightTransparent"
+                    app:tabSelectedTextColor="@color/colorAccentLight"
+                    app:tabTextAppearance="@style/TabText"
+                    app:tabTextColor="@color/colorGrayItem" />
+            <View
+                    android:background="#616161"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </FrameLayout>
+
+
+    <LinearLayout
+            android:id="@+id/firstPanelDragArea"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <include layout="@layout/layout_player_bottom_bar" />
+
+        <include layout="@layout/layout_player" />
+
+    </LinearLayout>
+
+
+</com.abed.xplayer.slidinguppanel.SlidingUpPanelLayout>
