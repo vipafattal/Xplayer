@@ -21,8 +21,6 @@ import javax.inject.Inject
  */
 @ApplicationScope
 class FirebaseRepository @Inject constructor() {
-    var errorStream: BehaviorSubject<String> = BehaviorSubject.create()
-        private set
 
     private val firestore = Firebase.firestore
     fun getUserPlayLists(): LiveData<List<Playlist>> {
@@ -113,7 +111,6 @@ class FirebaseRepository @Inject constructor() {
 
     companion object {
         val errorStream: BehaviorSubject<String> = BehaviorSubject.create()
-
     }
 
 }
