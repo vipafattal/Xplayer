@@ -4,7 +4,6 @@ import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abed.xplayer.framework.di.ApplicationScope
 import com.abed.xplayer.model.Media
 import com.abed.xplayer.model.Playlist
 import com.google.firebase.firestore.CollectionReference
@@ -14,13 +13,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import io.reactivex.subjects.BehaviorSubject
-import javax.inject.Inject
 
 /**
  * Created by Abed on 2019-9-17
  */
-@ApplicationScope
-class FirebaseRepository @Inject constructor() {
+class FirebaseRepository {
 
     private val firestore = Firebase.firestore
     fun getUserPlayLists(): LiveData<List<Playlist>> {
@@ -39,7 +36,7 @@ class FirebaseRepository @Inject constructor() {
         return result
     }
 
-    fun deletePlaylist(id:String): MutableLiveData<Boolean?> {
+    fun deletePlaylist(id: String): MutableLiveData<Boolean?> {
         val result = MutableLiveData<Boolean?>()
 
         firestore.playListCollection().document(id).delete().addOnCompleteListener {

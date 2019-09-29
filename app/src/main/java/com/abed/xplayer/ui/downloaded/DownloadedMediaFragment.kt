@@ -2,7 +2,6 @@ package com.abed.xplayer.ui.downloaded
 
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.abed.xplayer.R
 import com.abed.xplayer.framework.utils.DownloadMediaUtils
@@ -12,10 +11,10 @@ import com.abed.xplayer.ui.sharedComponent.controllers.BaseActivity
 import com.abed.xplayer.ui.sharedComponent.controllers.BaseFragment
 import com.abed.xplayer.ui.sharedComponent.recyclerAdapters.MediaListAdapter
 import com.abed.xplayer.utils.observer
-import com.abed.xplayer.utils.viewModelOf
 import com.codebox.lib.android.views.utils.visible
 import kotlinx.android.synthetic.main.fragment_downloaded.*
 import kotlinx.android.synthetic.main.layout_empty_data_text.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -23,14 +22,13 @@ import kotlinx.android.synthetic.main.layout_empty_data_text.*
 class DownloadedMediaFragment : BaseFragment(), ItemPressListener<Media> {
 
 
-    private lateinit var downloadedMediaViewModel: DownloadedViewModel
+    private val downloadedMediaViewModel: DownloadedViewModel by viewModel()
     private lateinit var mediaListAdapter: MediaListAdapter
 
     override val layoutId: Int = R.layout.fragment_downloaded
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        downloadedMediaViewModel = viewModelOf()
 
         downloadedMediaViewModel.getDownloadedMedia().observer(viewLifecycleOwner) {
             dispatchDataToAdapter(it)
@@ -39,8 +37,7 @@ class DownloadedMediaFragment : BaseFragment(), ItemPressListener<Media> {
 
     override fun onResume() {
         super.onResume()
-        if (::downloadedMediaViewModel.isInitialized)
-            downloadedMediaViewModel.loadData()
+        downloadedMediaViewModel.loadData()
     }
 
     override fun onItemClick(data: Media) {

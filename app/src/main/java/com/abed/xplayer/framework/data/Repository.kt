@@ -1,7 +1,6 @@
 package com.abed.xplayer.framework.data
 
 import com.abed.xplayer.framework.api.QuranMp3
-import com.abed.xplayer.framework.di.ApplicationScope
 import com.abed.xplayer.framework.utils.CacheManager
 import com.abed.xplayer.model.Language
 import com.abed.xplayer.model.Radio
@@ -15,26 +14,15 @@ import kotlinx.coroutines.Deferred
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.list
 import retrofit2.Response
-import javax.inject.Inject
 
 /**
  * Created by ${User} on ${Date}
  */
-@ApplicationScope
-class Repository @Inject constructor(){
+class Repository(private val quranMp3: QuranMp3,private val cacheManager: CacheManager) {
     var loadingStream: BehaviorSubject<Int> = BehaviorSubject.createDefault(0)
         private set
 
-    @Inject
-    lateinit var quranMp3: QuranMp3
 
-    @UnstableDefault
-    @Inject
-    lateinit var cacheManager: CacheManager
-
-    init {
-        XplayerApplication.appComponent.inject(this)
-    }
 
 
     @UnstableDefault

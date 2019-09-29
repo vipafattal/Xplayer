@@ -15,7 +15,7 @@ import com.abed.xplayer.ui.sharedComponent.widgets.XplayerToast
 import com.abed.xplayer.utils.observer
 import kotlinx.android.synthetic.main.fragment_media_playlist.*
 import kotlinx.android.synthetic.main.toolbar_details.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 /**
  * A simple [Fragment] subclass.
@@ -34,17 +34,11 @@ class MediaPlaylistFragment : BaseFragment(), ItemPressListener<Media> {
     }
 
 
-    @Inject
-    lateinit var firebaseRepository: FirebaseRepository
-
+    private val firebaseRepository: FirebaseRepository by inject()
     private lateinit var mediaListAdapter: MediaListAdapter
     private lateinit var playlist: Playlist
 
     private val mediaList = mutableListOf<Media>()
-
-    init {
-        XplayerApplication.appComponent.inject(this)
-    }
 
 
     override val layoutId: Int = R.layout.fragment_media_playlist

@@ -15,20 +15,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import co.jp.smagroup.musahaf.model.ShortcutDetails
 import com.abed.xplayer.R
-import com.abed.xplayer.framework.data.Repository
 import com.abed.xplayer.model.Reciter
 import com.abed.xplayer.ui.MainActivity
-import com.abed.xplayer.ui.sharedComponent.ViewModelFactory
-import com.abed.xplayer.ui.sharedComponent.XplayerApplication
 import com.abed.xplayer.ui.sharedComponent.controllers.BaseFragment
 import com.abed.xplayer.utils.Shortcut
 import com.abed.xplayer.utils.observer
-import com.abed.xplayer.utils.viewModelOf
 import com.codebox.lib.android.actvity.newIntent
 import kotlinx.android.synthetic.main.fragment_reciter_list.*
 import kotlinx.android.synthetic.main.toolbar_details.*
 import kotlinx.serialization.UnstableDefault
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -52,12 +48,8 @@ class TruckListFragment : BaseFragment() {
 
     private lateinit var reciter: Reciter
     private lateinit var language: String
-    @Inject
-    lateinit var repository: Repository
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var surahViewModel: SurahViewModel
+    private val surahViewModel: SurahViewModel by viewModel()
     private lateinit var surahsAdapter: TruckAdapter
     private var isScrollAnimated = false
 
@@ -70,8 +62,6 @@ class TruckListFragment : BaseFragment() {
             surahsAdapter =
                 TruckAdapter(emptyList(), reciter, it)
         }
-        XplayerApplication.appComponent.inject(this)
-        surahViewModel = viewModelOf(viewModelFactory)
     }
 
     @UnstableDefault

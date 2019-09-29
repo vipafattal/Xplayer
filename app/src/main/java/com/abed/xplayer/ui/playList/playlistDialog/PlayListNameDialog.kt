@@ -14,8 +14,8 @@ import com.abed.xplayer.utils.viewExtensions.isNotNullOrEmpty
 import com.codebox.lib.android.views.listeners.onClick
 import com.codebox.lib.android.views.utils.visible
 import kotlinx.android.synthetic.main.dialog_playlist_name.*
+import org.koin.android.ext.android.inject
 import java.util.*
-import javax.inject.Inject
 
 /**
  * Created by  on
@@ -33,15 +33,11 @@ class PlayListNameDialog : BaseDialog() {
         }
     }
 
-    @Inject
-    lateinit var firebaseRepository: FirebaseRepository
+
     private lateinit var media: Media
     private var isSavingProgressCompleted: LiveData<Boolean?>? = null
     private var isUpdate: Boolean = false
-
-    init {
-        XplayerApplication.appComponent.inject(this)
-    }
+    private val firebaseRepository:FirebaseRepository by inject()
 
     override val layoutId: Int = R.layout.dialog_playlist_name
 

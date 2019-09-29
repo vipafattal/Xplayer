@@ -15,15 +15,14 @@ import com.codebox.lib.android.views.listeners.onClick
 import com.codebox.lib.android.views.utils.gone
 import com.codebox.lib.android.views.utils.visible
 import kotlinx.android.synthetic.main.bottomsheet_select_playlist.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 /**
  * Created by  on
  */
 class SelectPlaylistDialog : BaseBottomSheetDialog(), ItemPressListener<Playlist> {
 
-    @Inject
-    lateinit var firebaseRepository: FirebaseRepository
+    private val firebaseRepository: FirebaseRepository by inject()
     private lateinit var media: Media
 
     private var isLoadingPlaylistCompleted: LiveData<Boolean?>? = null
@@ -38,10 +37,6 @@ class SelectPlaylistDialog : BaseBottomSheetDialog(), ItemPressListener<Playlist
 
             return thisDialog
         }
-    }
-
-    init {
-        XplayerApplication.appComponent.inject(this)
     }
 
 
@@ -72,11 +67,11 @@ class SelectPlaylistDialog : BaseBottomSheetDialog(), ItemPressListener<Playlist
             when (it) {
                 null -> playListLoading.visible()
                 true -> {
-                    XplayerToast.makeShort(requireContext(),R.string.saved)
+                    XplayerToast.makeShort(requireContext(), R.string.saved)
                     dismiss()
                 }
-                else ->{
-                    XplayerToast.makeShort(requireContext(),R.string.failed)
+                else -> {
+                    XplayerToast.makeShort(requireContext(), R.string.failed)
                     playListLoading.gone()
                     isLoadingPlaylistCompleted = null
                 }

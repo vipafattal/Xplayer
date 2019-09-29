@@ -20,7 +20,7 @@ buildscript {
         retrofitCoroutins_version = "0.9.2"
         okhttpLoggingInterceptorVersion = '4.1.1'
 
-        dagger_version = "2.5"
+        koinVersion = "2.0.1"
         lifecycle_version = '2.1.0'
         rxjava_version = "2.2.7"
         rxAndroid_version = "2.1.1"

@@ -2,13 +2,13 @@ package com.abed.xplayer.ui.sharedComponent
 
 import androidx.multidex.MultiDexApplication
 import com.abed.xplayer.R
-import com.abed.xplayer.framework.di.AppComponent
-import com.abed.xplayer.framework.di.DaggerAppComponent
+import com.abed.xplayer.framework.di.KoinComponent
 import com.codebox.lib.android.os.MagentaX
 import com.codebox.lib.standard.delegation.DelegatesExt
-import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.util.Util
-import kotlin.properties.Delegates
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
 /**
  * Created by ${User} on ${Date}
@@ -16,13 +16,10 @@ import kotlin.properties.Delegates
 class XplayerApplication : MultiDexApplication() {
 
     companion object {
-        var appComponent: AppComponent by DelegatesExt.notNullSingleValue()
-            private set
-
         var xplayer: XplayerApplication by DelegatesExt.notNullSingleValue()
             private set
 
-        var userAgent:String by  DelegatesExt.notNullSingleValue()
+        var userAgent: String by DelegatesExt.notNullSingleValue()
             private set
     }
 
@@ -30,15 +27,17 @@ class XplayerApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         xplayer = this
-        userAgent = Util.getUserAgent(this,getString(R.string.app_name))
+        userAgent = Util.getUserAgent(this, getString(R.string.app_name))
         MagentaX.init(this)
-        initDagger()
+        initInjection()
     }
 
-    private fun initDagger() {
-        appComponent = DaggerAppComponent.builder().build()
+    private fun initInjection() {
+        startKoin {
+            androidLogger()
+            androidContext(this@XplayerApplication)
+            modules(KoinComponent.appComponent)
+        }
     }
-
-    fun getActivityComponent() = appComponent.getActivityComponent().build()
 
 }
