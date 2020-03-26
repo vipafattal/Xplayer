@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ui.downloaded.DownloadedMediaFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="8dp"
             android:id="@+id/downloadedMediaRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:isScrollContainer="false"
             android:layoutAnimation="@anim/layout_animation_fall_down"
             android:orientation="vertical"
@@ -20,5 +20,7 @@
             tools:layoutAnimation="@null"
             tools:listitem="@layout/item_media" />
 
+    <include layout="@layout/layout_connection" />
     <include layout="@layout/layout_empty_data_text" />
+
 </FrameLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        tools:context=".ui.MainActivity">
+
+    <View
+            android:layout_width="8dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragmentPlayerRoot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/currentMediaTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="28dp"
+                android:background="?colorPrimaryDark"
+                android:padding="4dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                android:textColor="?textWithBackgroundColor"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="أحمد السويلم: الفاتحة"
+                tools:visibility="visible" />
+
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/downloadMediaButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/download"
+                android:textColor="?colorPrimaryDark"
+                android:visibility="gone"
+                app:backgroundTint="@color/white"
+                app:cornerRadius="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/currentMediaTitle"
+                app:layout_constraintTop_toBottomOf="@+id/currentMediaTitle"
+                tools:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/currentPlaylistRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toTopOf="@+id/audioPlayerView"
+                app:layout_constraintTop_toBottomOf="@+id/downloadMediaButton" />
+
+
+        <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/audioPlayerView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="30dp"
+                app:auto_show="false"
+                app:hide_on_touch="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:show_buffering="always"
+                app:shutter_background_color="?colorPrimary"
+                app:use_artwork="false">
+
+        </com.google.android.exoplayer2.ui.PlayerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

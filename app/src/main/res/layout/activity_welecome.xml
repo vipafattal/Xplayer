@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/welcomeRootView"
+        tools:context=".ui.WelcomeActivity">
+
+    <fragment
+            android:id="@+id/language_fragment"
+            tools:layout="@layout/fragment_languages"
+            class="com.brilliancesoft.xplayer.ui.language.LanguagesFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <include layout="@layout/layout_connection"/>
+
+</FrameLayout>

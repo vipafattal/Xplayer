@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+
     <color name="colorPrimary">#2D2D2E</color>
     <color name="colorPrimaryDark">#121314</color>
     <color name="colorAccent">#ff1744</color>
     <color name="colorAccentLight">#f1304d</color>
     <color name="colorLightTransparent">#66F1304D</color>
-    <color name="colorGrayItem">#757575</color>
     <color name="colorSecondary">#FFAB00</color>
+    <color name="colorTextSecondary">#757575</color>
+    <color name="colorTextSecondaryDarkBackground">#9E9D9D</color>
 
     <!--  <color name="black">#000000</color>
       <color name="snow">#fbf8f8</color>

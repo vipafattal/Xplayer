@@ -1,25 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        android:padding="8dp"
-        android:orientation="vertical"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
         tools:context=".ui.language.LanguagesFragment">
 
     <TextView
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:text="Please select a language:"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/hi"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4" />
 
-<androidx.recyclerview.widget.RecyclerView
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
-        tools:listitem="@layout/item_language"
-        android:layout_width="match_parent"
-        android:layout_height="360dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please choose your Quran and Broadcasts language from the list."
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_groups"
+            android:text="Please select a language:"
+            android:textAppearance="@style/AppTheme.Text.Body3" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/languagesRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_language" />
+
+    <LinearLayout
+            android:layout_marginTop="@dimen/space_between_groups"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                    android:textStyle="bold"
+                    android:textAppearance="@style/AppTheme.Text.Body3"
+                    android:text="Let's Play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/languageNextButton"
+                    android:layout_marginTop="6dp"
+                    app:icon="@drawable/ic_next_arrow"
+                    app:iconTint="@color/white"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
+                    android:enabled="false"
+                    app:iconSize="40dp"
+                    app:backgroundTint="@color/colorAccent"
+                    android:layout_width="100dp"
+                    app:cornerRadius="16dp"
+                    app:elevation="6dp"
+                    android:layout_height="60dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

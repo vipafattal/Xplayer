@@ -23,7 +23,7 @@
                     android:id="@+id/titleDetailsToolbar"
                     android:textStyle="normal"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textColor="@color/colorGrayItem"
+                    android:textColor="@color/colorTextSecondary"
                     tools:text="@string/app_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

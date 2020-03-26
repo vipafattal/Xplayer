@@ -1,61 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-        android:orientation="vertical"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:layout_width="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".ui.home.HomeFragment">
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-
-    <TextView
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/radio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:overScrollMode="never"
-            android:id="@+id/radioRecycler"
+    <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            tools:listitem="@layout/item_radio"
-            android:layoutAnimation="@anim/layout_animation_fall_down"
-            android:isScrollContainer="false"
-            android:layout_marginTop="14dp"
-            tools:itemCount="4"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_height="wrap_content"/>
-
-    <Space
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"/>
-
-    <TextView
-            android:layout_marginStart="20dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/reciters"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:layoutAnimation="@anim/layout_animation_fall_down"
+            android:layout_height="match_parent"
             android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:paddingStart="20dp"
-            android:isScrollContainer="false"
-            android:layout_marginTop="14dp"
-            android:id="@+id/recitersRecycler"
-            app:spanCount="2"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/item_reciter"
-            android:layout_width="match_parent"
-            android:minHeight="800dp"
-            android:layout_height="wrap_content"/>
-</LinearLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context=".ui.home.HomeFragment">
+
+
+            <TextView
+                    android:id="@+id/radiosTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/radio"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/radioRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:isScrollContainer="false"
+                    android:layoutAnimation="@anim/layout_animation_fall_down"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_radio"
+                    tools:targetApi="lollipop" />
+
+            <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp" />
+
+            <TextView
+                    android:id="@+id/recitersTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/reciters"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recitersRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="14dp"
+                    android:layoutAnimation="@anim/layout_animation_fall_down"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:paddingStart="20dp"
+                    android:scrollbars="vertical"
+                    android:splitMotionEvents="false"
+                    android:verticalScrollbarPosition="right"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    tools:listitem="@layout/item_reciter" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <include layout="@layout/layout_connection" />
+
+    <include layout="@layout/layout_empty_data_text" />
+</RelativeLayout>
+

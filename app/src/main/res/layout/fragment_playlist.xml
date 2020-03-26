@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/playlistRecycler"
@@ -19,7 +19,13 @@
             tools:layoutAnimation="@null"
             tools:listitem="@layout/item_playlist" />
 
+
+    <include
+            android:id="@+id/noAccountView"
+            android:visibility="gone"
+            layout="@layout/layout_no_account"/>
+
+    <include layout="@layout/layout_connection" />
     <include layout="@layout/layout_empty_data_text" />
-    <!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    -->
+
 </RelativeLayout>

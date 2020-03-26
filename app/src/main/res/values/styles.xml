@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorControlNormal">@color/colorGrayItem</item>
+        <item name="colorControlNormal">@color/colorTextSecondary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="windowNoTitle">true</item>
@@ -27,7 +27,7 @@
 
     <style name="AppTheme2" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorControlNormal">@color/colorGrayItem</item>
+        <item name="colorControlNormal">@color/colorTextSecondary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="windowNoTitle">true</item>
@@ -65,5 +65,16 @@
         <item name="android:background">@drawable/background_rounded_top</item>
     </style>
 
+
+    <style name="AppTheme.Text.Body3"  parent="@style/TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorTextSecondary</item>
+    </style>
+
+    <style name="AppTheme.Text.Secondary"  parent="@style/TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <item name="android:textColor">@color/colorTextSecondary</item>
+    </style>
 
 </resources>

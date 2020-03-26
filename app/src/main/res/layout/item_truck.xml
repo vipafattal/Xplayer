@@ -42,7 +42,7 @@
             tools:targetApi="lollipop" />
 
     <ImageView
-            android:tint="@color/colorGrayItem"
+            android:tint="@color/colorTextSecondary"
             android:background="?attr/selectableItemBackground"
             android:id="@+id/mediaDownloadImage"
             android:layout_width="24dp"
