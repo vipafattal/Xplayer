@@ -18,13 +18,16 @@ class RadioAdapter(dataList: List<Radio>) :
     override val layoutItemId: Int = R.layout.item_radio
 
     override fun onBindViewHolder(holder: RecyclerViewHolder<Radio>, position: Int) {
-        val data = dataList[position]
+        val radio = dataList[position]
 
         holder.itemView.apply {
-            radioName.text = data.name.replace('-',' ').trim()
+
+            val radioName = radio.name.replace('-', ' ').trim()
+            radioNameTextView.text = radioName
+
             listenRadioButton.onClick {
                 val activity = context as MainActivity
-                activity.play(Media(data))
+                activity.play(Media.create(radioName, radio))
             }
         }
 

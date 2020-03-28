@@ -8,5 +8,9 @@ data class Playlist(
     val userId: String = "",
     val id:String = "",
     val list: List<Media> = listOf()
-)
+) {
+    companion object {
+        const val PLAYLIST_DOWNLOADED_ID = "playlist downloaded"
+    }
+}
 

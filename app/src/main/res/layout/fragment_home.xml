@@ -37,6 +37,7 @@
                     android:layoutAnimation="@anim/layout_animation_fall_down"
                     android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="4"

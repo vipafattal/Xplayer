@@ -9,19 +9,43 @@ import com.google.firebase.firestore.Exclude
  */
 
 data class Media(
+    val reciterId: String = "",
     val title: String = "",
-    val subtitle: String? = null,
+    val subtitle: String = "",
     val link: String = "",
     @Exclude val isRadio: Boolean = false
 ) {
-    constructor(radio: Radio) : this(
-        radio.name.replace('-', ' ').trim(),
-        link = radio.url,
-        isRadio = true
-    )
-
     val isDownloaded: Boolean
         get() = !isRadio && DownloadMediaUtils.isDownloaded(this)
 
+    val isNotDownloaded: Boolean
+        get() = !isDownloaded
+
+
+    companion object {
+
+        fun create(sura: Sura, reciter: Reciter): Media {
+            val mediaFinalPart = when (val numberInMushaf = sura.numberInMushaf.toInt()) {
+                in 1..9 -> "00$numberInMushaf"
+                in 10..99 -> "0$numberInMushaf"
+                else -> numberInMushaf.toString()
+            } + ".mp3"
+
+            return Media(
+                reciter.id,
+                reciter.name,
+                sura.name,
+                link = reciter.servers + '/' + mediaFinalPart
+            )
+        }
+
+        fun create(suraName: String, reciter: Reciter): Media {
+            return Media(reciter.id, reciter.name, suraName, link = "")
+        }
+
+        fun create(radioName: String, radio: Radio): Media {
+            return Media(title = radioName, link = radio.url, isRadio = true)
+        }
+    }
 
 }

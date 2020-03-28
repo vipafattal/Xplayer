@@ -9,6 +9,7 @@ import com.abed.magentaX.android.views.visible
 import com.brilliancesoft.xplayer.R
 import com.brilliancesoft.xplayer.framework.utils.DownloadMediaUtils
 import com.brilliancesoft.xplayer.model.Media
+import com.brilliancesoft.xplayer.model.Playlist
 import com.brilliancesoft.xplayer.ui.MainActivity
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.BaseRecyclerAdapter
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.ItemPressListener
@@ -19,9 +20,9 @@ import kotlinx.android.synthetic.main.item_media.view.*
  * Created by  on
  */
 class MediaListAdapter(
-    data: List<Media>,
+    private val playlist: Playlist,
     private val itemPressListener: ItemPressListener<Media>
-) : BaseRecyclerAdapter<Media>(data) {
+) : BaseRecyclerAdapter<Media>(playlist.list) {
 
     override val layoutItemId: Int = R.layout.item_media
 
@@ -82,10 +83,7 @@ class MediaListAdapter(
     }
 
     private fun playListAt(media: Media, mainActivity: MainActivity) {
-        mainActivity.playMediaList(
-            dataList,
-            dataList.indexOf(media)
-        )
+        mainActivity.playMediaList(playlist, dataList.indexOf(media))
     }
 
     private fun removeFromPlayList(media: Media) {
