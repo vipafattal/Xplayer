@@ -29,7 +29,7 @@
 
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:id="@+id/radioName"
+                android:id="@+id/radioNameTextView"
                 android:textColor="?textWithBackgroundColor"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="match_parent"

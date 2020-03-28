@@ -21,18 +21,18 @@ class PlaylistAdapter(
     override val layoutItemId: Int = R.layout.item_playlist
 
     override fun onBindViewHolder(holder: RecyclerViewHolder<Playlist>, position: Int) {
-        val data = dataList[position].run { copy(name = name.replace("\r\n", "")) }
+        val playlist = dataList[position].run { copy(name = name.replace("\r\n", "")) }
 
         holder.itemView.apply {
-            playlistName.text = data.name
+            playlistName.text = playlist.name
 
             playButtonPlaylist.onClick {
                 val mainActivity = holder.itemView.context as MainActivity
-                mainActivity.playMediaList(data.list)
+                mainActivity.playMediaList(playlist)
             }
 
             onClick {
-                itemPressListener.onItemClick(data)
+                itemPressListener.onItemClick(playlist)
             }
 
         }

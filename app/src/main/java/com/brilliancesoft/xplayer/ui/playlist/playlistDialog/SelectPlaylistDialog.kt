@@ -10,10 +10,13 @@ import com.brilliancesoft.xplayer.framework.data.FirebaseRepository
 import com.brilliancesoft.xplayer.model.Media
 import com.brilliancesoft.xplayer.model.Playlist
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.ItemPressListener
-import com.brilliancesoft.xplayer.ui.commen.windowControllers.BaseBottomSheetDialog
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.widgets.XplayerToast
+import com.brilliancesoft.xplayer.ui.commen.windowControllers.BaseBottomSheetDialog
 import com.brilliancesoft.xplayer.utils.observer
 import kotlinx.android.synthetic.main.bottomsheet_select_playlist.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 /**
@@ -46,7 +49,7 @@ class SelectPlaylistDialog : BaseBottomSheetDialog(),
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if(firebaseRepository.currentUser != null) {
+        if (firebaseRepository.currentUser != null) {
             firebaseRepository.getUserPlayLists().observer(viewLifecycleOwner) {
                 playListSelectionRecycler.adapter = SelectPlaylistAdapter(it, this)
                 playListLoading.gone()
@@ -63,14 +66,21 @@ class SelectPlaylistDialog : BaseBottomSheetDialog(),
 
     }
 
-    override fun onItemClick(data: Playlist) {
+    override fun onItemClick(playlist: Playlist) {
         isLoadingPlaylistCompleted =
-            firebaseRepository.updateMediaInPlaylist(media, data.id, true)
+            firebaseRepository.updateMediaInPlaylist(media, playlist.id, true)
         isLoadingPlaylistCompleted!!.observer(viewLifecycleOwner) {
             when (it) {
                 null -> playListLoading.visible()
                 true -> {
                     XplayerToast.makeShort(requireContext(), R.string.saved)
+
+                    //Update current playlist if this playlist is currently running.
+                    val playerService = parentActivity.getPlayerService()!!
+                    if (playerService.getCurrentPlaylist().id == playlist.id) {
+                        playerService.addToPlayingMedia(media)
+                    }
+
                     dismiss()
                 }
                 else -> {

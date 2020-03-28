@@ -18,7 +18,6 @@ class SelectPlaylistAdapter(
     private val onPlaylistSelected: ItemPressListener<Playlist>
 ) :
     RecyclerView.Adapter<RecyclerViewHolder<Playlist>>() {
-    private val endDrawable = drawableOf(R.drawable.ic_add)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

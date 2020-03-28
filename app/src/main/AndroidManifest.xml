@@ -41,6 +41,16 @@
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
         </service>
+
+        <receiver
+                android:name=".framework.utils.CheckDownloadComplete"
+                android:enabled="true"
+                android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

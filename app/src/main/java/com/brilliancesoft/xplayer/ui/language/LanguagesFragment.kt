@@ -3,9 +3,12 @@ package com.brilliancesoft.xplayer.ui.language
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import com.abed.magentaX.android.context.launchActivity
 import com.abed.magentaX.android.utils.AppPreferences
+import com.abed.magentaX.android.views.gone
+import com.abed.magentaX.android.views.visible
 import com.brilliancesoft.xplayer.R
 import com.brilliancesoft.xplayer.commen.PreferencesKeys
 import com.brilliancesoft.xplayer.model.Language
@@ -48,13 +51,15 @@ class LanguagesFragment : BaseFragment(),
 
     override fun loadData() {
         super.loadData()
+
         languagesViewModel.getLanguages().observer(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 showErrorView()
-                view!!.visibility = View.GONE
+                welcomeFragmentRootView.gone()
             }
+
             else {
-                view!!.visibility = View.VISIBLE
+                welcomeFragmentRootView.visible()
                 languagesRecycler.adapter = LanguagesAdapter(it, this)
                 loadingCompleted()
             }

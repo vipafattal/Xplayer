@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
-        xmlns:tools="http://schemas.android.com/tools" app:cardCornerRadius="0dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        app:cardCornerRadius="0dp"
         android:layout_width="match_parent"
         android:paddingBottom="56dp"
         android:layout_gravity="bottom"

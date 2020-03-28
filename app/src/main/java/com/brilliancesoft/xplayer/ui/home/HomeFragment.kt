@@ -47,7 +47,6 @@ class HomeFragment : BaseFragment() {
         loadData()
     }
 
-
     private val numberOfDataLoading = MutableLiveData(0)
 
     override fun loadData() {
@@ -84,7 +83,8 @@ class HomeFragment : BaseFragment() {
             recitersAdapter.notifyDataSetChanged()
 
             if (radioList.first().url != ""){
-                radiosTitle.visible()
+                //TODO uncomment this line after test & rest radioList visibility.
+                //radiosTitle.visible()
                 radioAdapter.notifyDataSetChanged()
             }
 
@@ -95,10 +95,10 @@ class HomeFragment : BaseFragment() {
         get() = object :
             ItemPressListener<Reciter> {
             override fun onItemClick(data: Reciter) {
-                fragmentManager?.transaction {
+                parentFragmentManager.transaction {
                     replace(
                         R.id.fragmentHost,
-                        TruckListFragment.getInstance(data, "_arabic"),
+                        TruckListFragment.getInstance(data),
                         TruckListFragment.TAG
                     )
                     addToBackStack(null)
