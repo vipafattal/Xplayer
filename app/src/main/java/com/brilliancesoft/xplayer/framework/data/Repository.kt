@@ -1,7 +1,7 @@
 package com.brilliancesoft.xplayer.framework.data
 
 import com.brilliancesoft.xplayer.framework.api.QuranMp3
-import com.brilliancesoft.xplayer.framework.utils.CacheHelper
+import com.brilliancesoft.xplayer.framework.utils.CacheManager
 import com.brilliancesoft.xplayer.model.Language
 import com.brilliancesoft.xplayer.model.Radio
 import com.brilliancesoft.xplayer.model.Reciter
@@ -17,7 +17,7 @@ import retrofit2.Response
 /**
  * Created by ${User} on ${Date}
  */
-class Repository(private val quranMp3: QuranMp3) {
+class Repository(private val quranMp3: QuranMp3, private val cacheManager: CacheManager) {
     var loadingStream: BehaviorSubject<Int> = BehaviorSubject.createDefault(0)
         private set
 
@@ -38,7 +38,7 @@ class Repository(private val quranMp3: QuranMp3) {
                     quranMp3.getRadiosByLanguage(language).request {
                         radios = it.radios
 
-                        CacheHelper.saveList(
+                        cacheManager.saveList(
                             cacheKey = RadiosListKey + language,
                             dataSerializer = Radio.serializer().list, data = radios
                         )
@@ -48,7 +48,7 @@ class Repository(private val quranMp3: QuranMp3) {
             }
         }
         if (radios.isEmpty())
-            radios = CacheHelper.getSavedList(RadiosListKey + language, Radio.serializer().list)
+            radios = cacheManager.getSavedList(RadiosListKey + language, Radio.serializer().list)
 
         return radios
     }
@@ -60,7 +60,7 @@ class Repository(private val quranMp3: QuranMp3) {
         if (ConnectivityHelper.isConnectedToNetwork()) {
             quranMp3.getReciters(language).request {
                 reciters = it.reciters.filter { it.numberOfAvailableSuras == 114 }
-                CacheHelper.saveList(
+                cacheManager.saveList(
                     cacheKey = RecitersListKey + language,
                     dataSerializer = Reciter.serializer().list,
                     data = reciters
@@ -69,7 +69,7 @@ class Repository(private val quranMp3: QuranMp3) {
         }
         if (reciters.isEmpty())
             reciters =
-                CacheHelper.getSavedList(RecitersListKey + language, Reciter.serializer().list)
+                cacheManager.getSavedList(RecitersListKey + language, Reciter.serializer().list)
 
         return reciters
     }
@@ -89,12 +89,12 @@ class Repository(private val quranMp3: QuranMp3) {
     @UnstableDefault
     suspend fun getSurahsLanguage(language: String): List<Sura> {
         var surahs: List<Sura> =
-            CacheHelper.getSavedList(SurasNameKey + language, Sura.serializer().list)
+            cacheManager.getSavedList(SurasNameKey + language, Sura.serializer().list)
 
         if (surahs.isEmpty() && ConnectivityHelper.isConnectedToNetwork())
             quranMp3.getSurasName(language).request {
                 surahs = it.suras
-                CacheHelper.saveList(
+                cacheManager.saveList(
                     cacheKey = SurasNameKey + language,
                     dataSerializer = Sura.serializer().list,
                     data = surahs

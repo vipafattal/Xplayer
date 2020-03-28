@@ -38,10 +38,11 @@ class TruckListFragment : BaseFragment() {
     companion object {
         const val TAG = "ReciterListFragment"
 
-        fun getInstance(reciter: Reciter): TruckListFragment {
+        fun getInstance(reciter: Reciter, language: String): TruckListFragment {
             val reciterListFragment = TruckListFragment()
 
             reciterListFragment.reciter = reciter
+            reciterListFragment.language = language
 
             return reciterListFragment
         }
@@ -49,8 +50,9 @@ class TruckListFragment : BaseFragment() {
 
 
     private val surahViewModel: SurahViewModel by viewModel()
-    private val appPreference: AppPreferences by inject()
+    private val appPreference : AppPreferences by inject()
     private lateinit var reciter: Reciter
+    private lateinit var language: String
     private lateinit var surahsAdapter: TruckAdapter
     private var isScrollAnimated = false
 
@@ -59,8 +61,10 @@ class TruckListFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        surahsAdapter = TruckAdapter(emptyList(), reciter, parentFragmentManager)
+        fragmentManager?.let {
+            surahsAdapter =
+                TruckAdapter(emptyList(), reciter, it)
+        }
     }
 
     @UnstableDefault
@@ -79,10 +83,9 @@ class TruckListFragment : BaseFragment() {
 
         initNestScrollViewListener()
 
-        surahViewModel.getSurahList(appPreference.getStr(PreferencesKeys.RECITING_LANGUAGE))
-            .observer(viewLifecycleOwner) {
-                surahsAdapter.updateDataList(it)
-            }
+        surahViewModel.getSurahList(appPreference.getStr(PreferencesKeys.RECITING_LANGUAGE)).observer(viewLifecycleOwner) {
+            surahsAdapter.updateDataList(it)
+        }
     }
 
     private fun initNestScrollViewListener() {

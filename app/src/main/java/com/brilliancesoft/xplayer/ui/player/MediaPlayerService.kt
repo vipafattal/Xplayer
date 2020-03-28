@@ -11,7 +11,6 @@ import androidx.core.app.NotificationCompat
 import com.brilliancesoft.xplayer.R
 import com.brilliancesoft.xplayer.model.Duration
 import com.brilliancesoft.xplayer.model.Media
-import com.brilliancesoft.xplayer.model.Playlist
 import com.brilliancesoft.xplayer.ui.commen.XplayerApplication
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.widgets.XplayerToast
 import com.brilliancesoft.xplayer.ui.player.helpers.Constants.PLAYBACK_CHANNEL_ID
@@ -19,8 +18,7 @@ import com.brilliancesoft.xplayer.ui.player.helpers.Constants.PLAYBACK_NOTIFICAT
 import com.brilliancesoft.xplayer.ui.player.helpers.MediaSourceBuilder
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
-import com.google.android.exoplayer2.source.DynamicConcatenatingMediaSource
-import com.google.android.exoplayer2.source.ShuffleOrder
+import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
@@ -34,9 +32,7 @@ class MediaPlayerService : Service() {
     private val serviceBinder = ServiceBinder()
     private var isRadio: Boolean = false
     private var currentPlayList: MutableList<Media> = mutableListOf()
-    var currentPlaylistId = ""
-        private set
-    var exoMediaSource: ConcatenatingMediaSource? = null
+    var exoMediaSource: MediaSource? = null
         private set
     private val bandwidthMeter =
         DefaultBandwidthMeter.Builder(XplayerApplication.appContext).build()
@@ -95,10 +91,12 @@ class MediaPlayerService : Service() {
     }
 
     fun playMedia(media: Media) {
-        exoMediaSource = ConcatenatingMediaSource(MediaSourceBuilder.create(media))
+        exoMediaSource = MediaSourceBuilder.create(media)
 
         currentPlayList.clear()
         currentPlayList.add(media)
+
+        PlayerHelper.updateMediaList(emptyList())
 
         //resting saved position for the new media create.
         currentWindow = 0
@@ -108,27 +106,33 @@ class MediaPlayerService : Service() {
         exoPlayer.playWhenReady = true
     }
 
-    fun playMedia(playlist: Playlist, startAtPosition: Int) {
-        exoMediaSource = ConcatenatingMediaSource(MediaSourceBuilder.create(playlist.list))
-
-        currentPlaylistId = playlist.id
+    fun playMedia(mediaList: List<Media>, startAtPosition: Int) {
+        exoMediaSource = MediaSourceBuilder.create(mediaList)
 
         currentPlayList.clear()
-        currentPlayList.addAll(playlist.list)
+        currentPlayList.addAll(mediaList)
+        PlayerHelper.updateMediaList(currentPlayList)
         //resting saved position for the new media create.
         currentWindow = startAtPosition
         playbackPosition = 0
-        exoPlayer.prepare(exoMediaSource, false, true)
         exoPlayer.seekTo(startAtPosition, C.TIME_UNSET)
         isRadio = false
         //playerView.iconPlayPause.setImageResource(R.drawable.ic_pause)
+        exoPlayer.prepare(exoMediaSource, false, true)
         exoPlayer.playWhenReady = true
     }
 
-    fun addToPlayingMedia(media: Media) {
-        val newMediaDataSource = MediaSourceBuilder.create(media)
-        exoMediaSource!!.addMediaSource(exoMediaSource)
+    fun addToPlayingMedia(newMediaDataSource: MediaSource) {
+        exoMediaSource = ConcatenatingMediaSource(exoMediaSource, newMediaDataSource)
         currentPlayList.add(newMediaDataSource.tag as Media)
+        PlayerHelper.updateMediaList(currentPlayList)
+        resumePlayer()
+    }
+
+
+    fun setPlayerView(playerView: PlayerView) {
+        playerView.player = exoPlayer
+
     }
 
     fun resumePlayer() {
@@ -163,7 +167,6 @@ class MediaPlayerService : Service() {
     }
 
     fun getCurrentPlayMedia(): Media? = exoPlayer.currentTag as? Media
-    fun getCurrentPlaylist(): Playlist = Playlist(id = currentPlaylistId, list = currentPlayList)
 
     fun moveToMedia(media: Media) {
         require(currentPlayList.contains(media)) { "media is not added to the player" }

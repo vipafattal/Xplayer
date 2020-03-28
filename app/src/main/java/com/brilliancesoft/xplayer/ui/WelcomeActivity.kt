@@ -7,14 +7,10 @@ import com.abed.magentaX.android.utils.screenHelpers.dp
 import com.brilliancesoft.xplayer.R
 import com.brilliancesoft.xplayer.ui.commen.windowControllers.BaseActivity
 import com.brilliancesoft.xplayer.utils.viewExtensions.doOnApplyWindowInsets
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_welecome.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class WelcomeActivity : BaseActivity() {
-
-    val firebaseAuth:FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +27,6 @@ class WelcomeActivity : BaseActivity() {
         } else
             welcomeRootView.updatePadding(top = tabsMain.paddingTop + dp(24))
 
-        signInTestAccount()
         userErrorNotifier()
-    }
-
-    fun signInTestAccount() {
-        firebaseAuth.signInWithEmailAndPassword("test@test.com","123456789").addOnCompleteListener {
-            if (it.isSuccessful){
-
-            }
-        }
     }
 }

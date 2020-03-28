@@ -6,26 +6,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
-        android:background="@android:color/transparent"
         app:dragView="@id/firstPanelDragArea"
         app:panelHeight="@dimen/bottom_action_bar_height"
         app:shadowHeight="@dimen/sliding_panel_shadow_height"
         app:slidePanelOffset="@dimen/bottom_action_bar_height"
-        tools:context=".ui.MainActivity"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-<!--android:background="#FAC5CA"-->
+        tools:context=".ui.MainActivity">
+    <!--android:background="#FAC5CA"-->
 
     <include layout="@layout/content_main" />
 
     <LinearLayout
+            android:id="@+id/firstPanelDragArea"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <include
-                android:id="@+id/firstPanelDragArea"
-                layout="@layout/layout_player_bottom_bar" />
+        <include layout="@layout/layout_player_bottom_bar" />
 
         <fragment
                 class="com.brilliancesoft.xplayer.ui.player.PlayerFragment"

@@ -4,9 +4,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="50dp"
 
+        android:layout_marginTop="6dp"
         tools:background="@color/colorPrimary"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
@@ -46,16 +46,16 @@
             android:id="@+id/downloadedMediaItem"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="8dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:tint="@color/colorAccent"
+            android:tint="@color/colorTextSecondaryDarkBackground"
             app:layout_constraintBottom_toBottomOf="@+id/mediaItemButton"
             app:layout_constraintEnd_toStartOf="@+id/mediaItemButton"
             app:layout_constraintTop_toTopOf="@+id/mediaItemButton"
             app:layout_constraintVertical_bias="0.52"
-            tools:srcCompat="@drawable/ic_download" />
+            app:srcCompat="@drawable/ic_download_done" />
 
     <ImageView
             android:id="@+id/mediaItemButton"

@@ -5,11 +5,10 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Editable
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.view.*
+import androidx.core.view.updatePadding
 import com.abed.magentaX.android.utils.screenHelpers.dp
 
 /**
@@ -35,44 +34,13 @@ fun View.doOnApplyWindowInsets(insetsBlock: (insets: WindowInsets, originalPaddi
     }
 }
 
-fun View.addTopInsetPadding() {
+fun View.addTopInsetPadding(){
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
-        val padding =
-            Rect(
-                paddingLeft,
-                paddingTop,
-                paddingRight,
-                paddingBottom
-            )
-        setOnApplyWindowInsetsListener { v, insets ->
+        doOnApplyWindowInsets { insets, originalPadding ->
             if (insets.systemWindowInsetTop > 0)
-                updatePadding(top = padding.top + insets.systemWindowInsetTop)
-            insets
+                updatePadding(top = originalPadding.top + insets.systemWindowInsetTop)
         }
-    } else
-        updatePadding(top = paddingTop + dp(24))
-}
-
-
-fun ViewGroup.addTopInsetMargin() {
-    val marginLayoutParams = layoutParams as ViewGroup.MarginLayoutParams
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
-        val margin =
-            Rect(
-                marginLeft,
-                marginTop,
-                marginRight,
-                marginBottom
-            )
-        setOnApplyWindowInsetsListener { v, insets ->
-            if (insets.systemWindowInsetTop > 0)
-                marginLayoutParams.updateMargins(top = margin.top + insets.systemWindowInsetTop)
-            insets
-        }
-
-    } else
-        marginLayoutParams.updateMargins(top = marginTop + dp(24))
+    } else updatePadding(top = paddingTop + dp(24))
 }
 
 fun TextView.setDrawable(
@@ -83,3 +51,6 @@ fun TextView.setDrawable(
 ) {
     setCompoundDrawablesRelative(start, top, end, bottom)
 }
+
+
+

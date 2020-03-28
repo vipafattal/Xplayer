@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.abed.magentaX.android.views.gone
-import com.abed.magentaX.android.views.listeners.onClick
 import com.abed.magentaX.android.views.visible
 import com.abed.magentaX.android.widgets.recyclerView.onScroll
 import com.brilliancesoft.xplayer.R
+import com.brilliancesoft.xplayer.ui.MainActivity
 import kotlinx.android.synthetic.main.layout_connection.*
-import kotlinx.android.synthetic.main.layout_connection.view.*
 import kotlinx.android.synthetic.main.layout_empty_data_text.*
 import kotlinx.android.synthetic.main.layout_loading.loadingView
 
@@ -24,15 +24,23 @@ abstract class BaseFragment : Fragment() {
 
 
 
+    @Suppress("UNCHECKED_CAST")
+    @CallSuper
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        retryButton?.setOnClickListener {
+            connectionErrorView.gone()
+            loadData()
+        }
+    }
+
+
     final override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val view = inflater.inflate(layoutId, container, false)
-        view.retryButton?.onClick { loadData() }
-        return view
-    }
+    ): View = inflater.inflate(layoutId, container, false)
 
 
     open fun loadData() {
@@ -42,13 +50,13 @@ abstract class BaseFragment : Fragment() {
 
     fun loadingCompleted(withError: Boolean = false) {
         hideLoading()
-
         if (withError)
             connectionErrorView.visible()
     }
 
 
     private fun showLoading() = loadingView!!.visible()
+
 
     private fun hideLoading() = loadingView!!.gone()
 

@@ -42,6 +42,5 @@
     <string name="create">Create</string>
     <string name="signed_in">Singed in</string>
     <string name="hi">Hi</string>
-    <string name="download_started">Downloading started...</string>
 </resources>
 

@@ -14,10 +14,10 @@ import com.brilliancesoft.xplayer.model.Media
 import com.brilliancesoft.xplayer.model.Reciter
 import com.brilliancesoft.xplayer.model.Sura
 import com.brilliancesoft.xplayer.ui.MainActivity
+import com.brilliancesoft.xplayer.ui.playlist.playlistDialog.SelectPlaylistDialog
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.BaseRecyclerAdapter
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.RecyclerViewHolder
 import com.brilliancesoft.xplayer.ui.commen.windowControllers.BaseActivity
-import com.brilliancesoft.xplayer.ui.playlist.playlistDialog.SelectPlaylistDialog
 import kotlinx.android.synthetic.main.item_truck.view.*
 
 /**
@@ -27,7 +27,8 @@ class TruckAdapter(
     dataList: List<Sura>,
     private val reciter: Reciter,
     private val fragmentManager: FragmentManager
-) : BaseRecyclerAdapter<Sura>(dataList) {
+) :
+    BaseRecyclerAdapter<Sura>(dataList) {
 
 
     override val layoutItemId: Int = R.layout.item_truck
@@ -38,9 +39,7 @@ class TruckAdapter(
         holder.itemView.apply {
             surahName.text = sura.name
 
-            val media = Media.create(sura, reciter)
-
-            val isDownloaded = DownloadMediaUtils.isDownloaded(media)
+            val isDownloaded = DownloadMediaUtils.isDownloaded(reciter.name, sura.name)
             if (isDownloaded) mediaDownloadImage.visible()
             else mediaDownloadImage.invisible()
 
@@ -52,23 +51,21 @@ class TruckAdapter(
     }
 
     private fun playMedia(sura: Sura, context: Context) {
-        val media = Media.create(sura, reciter)
+        val media = createMedia(sura)
         (context as MainActivity).play(media)
     }
 
 
-    private fun showPopup(v: View, sura: Sura, context: Context) {
+    private fun showPopup(v: View, data: Sura, context: Context) {
         val popup =
             PopupMenu(v.context, v, Gravity.END, android.R.attr.popupMenuStyle, R.style.popupMenu)
         popup.inflate(R.menu.popup_truck)
 
-        val media = Media.create(sura, reciter)
-
-        val isDownloaded = DownloadMediaUtils.isDownloaded(media)
+        val isDownloaded = DownloadMediaUtils.isDownloaded(reciter.name, data.name)
         popup.menu.findItem(R.id.download_media).isVisible = !isDownloaded
 
         popup.show()
-        popup.setPopupClickListener(sura, context)
+        popup.setPopupClickListener(data, context)
     }
 
     private fun PopupMenu.setPopupClickListener(
@@ -80,7 +77,7 @@ class TruckAdapter(
                 R.id.play_media -> playMedia(sura, context)
                 R.id.add_to_playlist -> addToPlaylist(sura)
                 R.id.download_media -> {
-                    val media = Media.create(sura, reciter)
+                    val media = createMedia(sura)
                     DownloadMediaUtils.download(media, context as BaseActivity)
                 }
             }
@@ -88,8 +85,25 @@ class TruckAdapter(
         }
     }
 
-    private fun addToPlaylist(sura: Sura) {
-        val media = Media.create(sura, reciter)
+    @Suppress("MoveVariableDeclarationIntoWhen")
+    fun createMedia(data: Sura): Media {
+        val numberInMushaf = data.numberInMushaf.toInt()
+
+        val mediaFinalPart = when (numberInMushaf) {
+            in 1..9 -> "00$numberInMushaf"
+            in 10..99 -> "0$numberInMushaf"
+            else -> numberInMushaf.toString()
+        } + ".mp3"
+
+        return Media(
+            reciter.name,
+            data.name,
+            link = reciter.servers + '/' + mediaFinalPart
+        )
+    }
+
+    private fun addToPlaylist(data: Sura) {
+        val media = createMedia(data)
         val playlistDialog = SelectPlaylistDialog.getInstance(media)
         playlistDialog.show(fragmentManager, SelectPlaylistDialog.TAG)
     }

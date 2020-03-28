@@ -19,7 +19,6 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_playlist.*
-import kotlinx.android.synthetic.main.layout_empty_data_text.*
 import kotlinx.android.synthetic.main.layout_no_account.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -47,6 +46,7 @@ class PlaylistFragment : BaseFragment(),
         else
             noAccountView.visible()
 
+
         onClicks(createAccountButton, signInButton) {
             val providers = Arrays.asList(
                 AuthUI.IdpConfig.GoogleBuilder().build(),
@@ -72,12 +72,10 @@ class PlaylistFragment : BaseFragment(),
         super.loadData()
 
         noAccountView.gone()
-
         playlistViewModel.getPlayLists().observer(viewLifecycleOwner) {
 
             if (it.isNotEmpty()) {
                 loadingCompleted()
-                emptyDataText.gone()
                 playlistRecycler.adapter = PlaylistAdapter(it, this)
             } else
                 showNoDataView()

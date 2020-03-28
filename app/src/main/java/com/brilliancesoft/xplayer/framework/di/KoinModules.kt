@@ -6,6 +6,7 @@ import com.brilliancesoft.xplayer.BuildConfig
 import com.brilliancesoft.xplayer.framework.api.QuranMp3
 import com.brilliancesoft.xplayer.framework.data.FirebaseRepository
 import com.brilliancesoft.xplayer.framework.data.Repository
+import com.brilliancesoft.xplayer.framework.utils.CacheManager
 import com.brilliancesoft.xplayer.ui.downloaded.DownloadedViewModel
 import com.brilliancesoft.xplayer.ui.home.HomeViewModel
 import com.brilliancesoft.xplayer.ui.language.LanguagesViewModel
@@ -30,11 +31,15 @@ object KoinModules {
 
     val dataSource = module {
         single {
-            Repository(get())
+            Repository(get(), get())
         }
 
         single {
             FirebaseRepository(get(),get())
+        }
+
+        factory {
+            CacheManager()
         }
 
         factory {

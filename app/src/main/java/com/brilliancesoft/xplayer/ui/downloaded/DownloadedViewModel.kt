@@ -1,15 +1,16 @@
 package com.brilliancesoft.xplayer.ui.downloaded
 
+import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.brilliancesoft.xplayer.framework.utils.DataDirectories
 import com.brilliancesoft.xplayer.model.Media
-import com.brilliancesoft.xplayer.model.Reciter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 
 /**
  * Created by  on
@@ -28,22 +29,23 @@ class DownloadedViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             downloadedMediaList.clear()
 
-            val file = DataDirectories.getRecitersFolder()
+            val file = File(
+                Environment.getExternalStorageDirectory(),
+                DataDirectories.getRecitersFolder()
+            )
 
             val recitersFolder = file.listFiles()
             if (recitersFolder != null)
                 for (reciterFolder in recitersFolder) {
                     reciterFolder.listFiles().forEach {
                         //Checking that this file is not a directory (folder).
-                        if (it.isFile) {
-
-                            val surahName = it.nameWithoutExtension
-                            val reciter = Reciter("", reciterFolder.name, "")
-                            val media = Media.create(surahName, reciter)
-
-                            if (media.isDownloaded)
-                                downloadedMediaList.add(media)
-                        }
+                        if (it.isFile)
+                            downloadedMediaList.add(
+                                Media(
+                                    title = reciterFolder.name,
+                                    subtitle = it.nameWithoutExtension
+                                )
+                            )
                     }
                 }
 

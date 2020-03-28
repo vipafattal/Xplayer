@@ -1,5 +1,6 @@
 package com.brilliancesoft.xplayer.framework.utils
 
+import android.os.Environment
 import com.brilliancesoft.xplayer.R
 import com.brilliancesoft.xplayer.model.Media
 import com.brilliancesoft.xplayer.ui.commen.XplayerApplication
@@ -26,10 +27,17 @@ object DataDirectories {
         )
     }
 
-    fun getRecitersFolder() = File(
-        XplayerApplication.appContext.getExternalFilesDir(null),
-        "$rootFolder/$recitersFolder/"
-    )
+    fun buildSurahFile(reciterName: String, fileName: String): File {
+        return File(
+            XplayerApplication.appContext.getExternalFilesDir(null),
+            getReciterSurahPath(
+                reciterName,
+                fileName
+            )
+        )
+    }
+
+    fun getRecitersFolder() = "$rootFolder/$recitersFolder/"
 
     private fun getReciterSurahPath(reciterName: String, fileName: String) =
         getReciterFolderPath(reciterName).getSurahFilePath(fileName)

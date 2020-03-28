@@ -2,12 +2,10 @@ package com.brilliancesoft.xplayer.ui.downloaded
 
 
 import android.os.Bundle
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
 import com.brilliancesoft.xplayer.R
 import com.brilliancesoft.xplayer.framework.utils.DownloadMediaUtils
 import com.brilliancesoft.xplayer.model.Media
-import com.brilliancesoft.xplayer.model.Playlist
+import com.brilliancesoft.xplayer.ui.MainActivity
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.ItemPressListener
 import com.brilliancesoft.xplayer.ui.commen.recyclerAdapters.MediaListAdapter
 import com.brilliancesoft.xplayer.ui.commen.windowControllers.BaseActivity
@@ -24,12 +22,14 @@ class DownloadedMediaFragment : BaseFragment(),
     private val downloadedMediaViewModel: DownloadedViewModel by viewModel()
     private lateinit var mediaListAdapter: MediaListAdapter
 
+
     override val layoutId: Int = R.layout.fragment_downloaded
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loadData()
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -38,7 +38,6 @@ class DownloadedMediaFragment : BaseFragment(),
     }
 
     override fun onItemClick(data: Media) {
-
         (context as BaseActivity).executeWithPendingPermission(
             BaseActivity.STORAGE_PERMISSION,
             BaseActivity.STORAGE_REQUEST_CODE
@@ -57,13 +56,13 @@ class DownloadedMediaFragment : BaseFragment(),
         }
     }
 
-    private fun dispatchDataToAdapter(mediaList: List<Media>) {
-        if (mediaList.isEmpty())
+    private fun dispatchDataToAdapter(dataList: List<Media>) {
+        if (dataList.isEmpty())
             showNoDataView(R.string.no_media_downloaded)
         else {
             loadingCompleted()
 
-            mediaListAdapter = MediaListAdapter(Playlist(list = mediaList), this)
+            mediaListAdapter = MediaListAdapter(dataList, this)
             downloadedMediaRecycler.adapter = mediaListAdapter
         }
 

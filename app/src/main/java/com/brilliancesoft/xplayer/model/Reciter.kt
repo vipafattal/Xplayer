@@ -8,8 +8,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Reciter(
-    val id: String,
-    val name: String,
+    val id: String, val name: String,
     @SerializedName("Server") val servers: String,
     @SerializedName("count") val numberOfAvailableSuras: Int = 114
 )

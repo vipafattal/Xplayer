@@ -7,10 +7,10 @@ import com.brilliancesoft.xplayer.R
 import com.brilliancesoft.xplayer.framework.data.FirebaseRepository
 import com.brilliancesoft.xplayer.model.Media
 import com.brilliancesoft.xplayer.model.Playlist
-import com.brilliancesoft.xplayer.ui.commen.recyclerAdapters.MediaListAdapter
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.ItemPressListener
-import com.brilliancesoft.xplayer.ui.commen.sharedComponent.widgets.XplayerToast
 import com.brilliancesoft.xplayer.ui.commen.windowControllers.BaseFragment
+import com.brilliancesoft.xplayer.ui.commen.recyclerAdapters.MediaListAdapter
+import com.brilliancesoft.xplayer.ui.commen.sharedComponent.widgets.XplayerToast
 import com.brilliancesoft.xplayer.utils.observer
 import kotlinx.android.synthetic.main.fragment_media_playlist.*
 import kotlinx.android.synthetic.main.toolbar_details.*
@@ -53,20 +53,21 @@ class MediaPlaylistFragment : BaseFragment(),
 
             firebaseRepository.deletePlaylist(playlist.id).observer(viewLifecycleOwner) {
                 if (it != null)
-                    if (it) parentFragmentManager.beginTransaction().remove(this)
+                    if (it) fragmentManager?.beginTransaction()!!.remove(this)
                     else XplayerToast.makeShort(context!!, getString(R.string.failed))
             }
             true
         }
 
-        mediaListAdapter =
-            MediaListAdapter(
-                playlist,
-                this
-            )
-        mediaPlaylistRecycler.adapter = mediaListAdapter
+        fragmentManager?.let {
+            mediaListAdapter =
+                MediaListAdapter(
+                    mediaList,
+                    this
+                )
+            mediaPlaylistRecycler.adapter = mediaListAdapter
 
-
+        }
     }
 
     override fun onItemClick(data: Media) {

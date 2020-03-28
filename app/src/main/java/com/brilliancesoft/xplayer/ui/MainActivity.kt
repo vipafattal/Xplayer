@@ -18,7 +18,6 @@ import com.brilliancesoft.xplayer.R
 import com.brilliancesoft.xplayer.commen.PreferencesKeys
 import com.brilliancesoft.xplayer.model.Duration
 import com.brilliancesoft.xplayer.model.Media
-import com.brilliancesoft.xplayer.model.Playlist
 import com.brilliancesoft.xplayer.model.Reciter
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.widgets.XplayerToast
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.widgets.slidinguppanel.OnPanelSlided
@@ -53,11 +52,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     private val appPreferences: AppPreferences by inject()
     private lateinit var playerFragment: PlayerFragment
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
         if (appPreferences.getStr(PreferencesKeys.RECITING_LANGUAGE, "") == "") {
             launchActivity<WelcomeActivity>()
@@ -82,7 +78,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             supportFragmentManager.transaction {
                 replace(
                     R.id.fragmentHost,
-                    TruckListFragment.getInstance(shortcut),
+                    TruckListFragment.getInstance(
+                        shortcut,
+                        appPreferences.getStr(PreferencesKeys.RECITING_LANGUAGE)
+                    ),
                     TruckListFragment.TAG
                 )
                 addToBackStack(null)
@@ -91,7 +90,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
         playerFragment =
             supportFragmentManager.findFragmentById(R.id.playerFragment) as PlayerFragment
-
     }
 
     private fun getReciterFromShortcut(): Reciter? {
@@ -103,7 +101,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         return if (id != null)
             Reciter(id, name!!, servers!!)
         else null
-
     }
 
     private val onPanelSlided = object : OnPanelSlided {
@@ -168,6 +165,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     else -> getString(R.string.downloaded)
                 }
             }).attach()
+
     }
 
     fun play(media: Media) {
@@ -176,9 +174,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    fun playMediaList(playlist: Playlist, startAtPosition: Int = 0) {
+    fun playMediaList(mediaList: List<Media>, startAtPosition: Int = 0) {
         executeWithPendingPermission(STORAGE_PERMISSION, STORAGE_REQUEST_CODE) {
-            playerService.playMedia(playlist, startAtPosition)
+            playerService.playMedia(mediaList, startAtPosition)
         }
     }
 
@@ -192,12 +190,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     private fun onMediaFirstPlayed() {
         val media = playerService.getCurrentPlayMedia()
         media?.let {
-            val mediaInfo =
-                if (media.subtitle.isNotEmpty()) media.title + ": " + media.subtitle else media.title
+            val mediaInfo = media.title + ": " + media.subtitle
             playBarTitle.text = mediaInfo
 
-            if (playerFragment.view != null)
-                playerFragment.dispatchMediaToUI(media, playerService.getCurrentPlaylist().list)
+            playerFragment.dispatchMediaToUI(media)
         }
     }
 
@@ -314,6 +310,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
                 playerService.setPlayerListener(PlayerListener())
                 playerService.initializePlayerView(playerFragment.audioPlayerView)
+
                 if (playerService.isPlaying) {
                     playBarTitle.text = playerService.getCurrentPlayMedia()!!.title
                     activeCurrentMinLeftInMedia()
