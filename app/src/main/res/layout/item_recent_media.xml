@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/media_hor_padding">
+
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/recent_media_card_avater"
+            android:layout_width="@dimen/media_avater_width"
+            android:layout_height="@dimen/media_avater_height"
+            app:cardBackgroundColor="?colorPrimaryDark"
+            app:cardCornerRadius="@dimen/media_avater_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="@dimen/media_avater_card_stroke">
+
+        <ImageView
+                android:id="@+id/recent_media_avater"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/media_avater_padding"
+                tools:srcCompat="@drawable/ic_media_avater1" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+            android:id="@+id/recent_media_surah_name"
+            style="@style/AppTheme.Text.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/recent_media_card_avater"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/tools_surah_al_anam" />
+
+    <TextView
+            android:id="@+id/recent_media_reciter_name"
+            style="@style/AppTheme.Text.Secondary1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/recent_media_surah_name"
+            app:layout_constraintTop_toBottomOf="@+id/recent_media_surah_name"
+            tools:text="@string/tools_reciter_maharialafasy" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

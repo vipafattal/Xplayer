@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.user_activity.UserActivityFragment">
+        <com.google.android.material.tabs.TabLayout
+                android:layout_marginTop="8dp"
+                android:id="@+id/user_activity_tabs"
+                android:layout_width="match_parent"
+                app:tabIndicator="@drawable/ic_tab_indicator"
+                android:layout_height="?actionBarSize"
+                android:background="#fff"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                app:tabIndicatorHeight="4dp"
+                app:tabPaddingBottom="3dp"
+                app:tabPaddingTop="18dp"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabRippleColor="@color/colorLightTransparent"
+                app:tabSelectedTextColor="@color/colorAccentLight"
+                app:tabTextAppearance="@style/TabText"
+                app:tabTextColor="@color/tab_secondary_color" />
+        <View
+                android:layout_marginTop="0.8dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/tab_secondary_color" />
+
+        <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/userActivityPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:colorBackground" />
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/user_activity_fragment_host"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+</FrameLayout>

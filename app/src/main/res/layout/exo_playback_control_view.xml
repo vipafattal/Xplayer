@@ -8,8 +8,10 @@
         android:paddingEnd="8dp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical">
+
     <com.google.android.exoplayer2.ui.DefaultTimeBar
             android:id="@id/exo_progress"
+            app:unplayed_color="@color/colorTextSecondary"
             app:played_color="@color/colorAccent"
             app:buffered_color="@color/colorLightTransparent"
             android:layout_width="match_parent"

@@ -20,11 +20,6 @@ abstract class BaseRecyclerAdapter<Data : Any>(
             layoutItemId
         )
 
-    fun updateDataList(newDataList: List<Data>) {
-        dataList = newDataList
-        notifyDataSetChanged()
-    }
-
     fun removeItemAtIndex(index: Int) {
         notifyItemRemoved(index)
         notifyItemRangeRemoved(index, dataList.size)

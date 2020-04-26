@@ -1,5 +1,6 @@
 package com.brilliancesoft.xplayer.utils.viewExtensions
 
+import android.animation.ValueAnimator
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -11,6 +12,8 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.*
 import com.abed.magentaX.android.utils.screenHelpers.dp
+import com.brilliancesoft.xplayer.R
+import com.google.android.material.card.MaterialCardView
 
 /**
  * Created by  on
@@ -73,6 +76,40 @@ fun ViewGroup.addTopInsetMargin() {
 
     } else
         marginLayoutParams.updateMargins(top = marginTop + dp(24))
+}
+
+fun MaterialCardView.animateElevation(animateOut: Boolean) {
+    val elevation = resources.getDimension(R.dimen.toolbar_elevation)
+    var endElevation = elevation
+    var startElevation = 0f
+
+    if (animateOut) {
+        startElevation = elevation
+        endElevation = 0f
+    }
+    if (cardElevation != endElevation)
+        ValueAnimator().apply {
+            duration = 250
+            setFloatValues(startElevation, endElevation)
+            setTarget(this)
+            start()
+        }.addUpdateListener {
+            cardElevation = it.animatedValue as Float
+        }
+}
+
+ fun MaterialCardView.hideCard() {
+        animate()
+        .setDuration(250)
+        .translationY(-height.toFloat() + cardElevation)
+        .start()
+}
+
+ fun MaterialCardView.showCard() {
+         animate()
+        .setDuration(400)
+        .translationY(0f)
+        .start()
 }
 
 fun TextView.setDrawable(

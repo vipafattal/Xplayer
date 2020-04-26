@@ -18,4 +18,15 @@
     <dimen name="normal_progressbar_size">35dp</dimen>
     <dimen name="buttons_radius">8dp</dimen>
     <dimen name="space_between_groups">24dp</dimen>
+    <dimen name="media_avater_width">63.5dp</dimen>
+    <dimen name="media_avater_height">65dp</dimen>
+    <dimen name="media_hor_padding">24dp</dimen>
+    <dimen name="media_mar_top">19dp</dimen>
+    <dimen name="media_avater_radius">7dp</dimen>
+    <dimen name="media_avater_padding">6dp</dimen>
+    <dimen name="download_size">25dp</dimen>
+    <dimen name="media_avater_card_stroke">0.90dp</dimen>
+    <dimen name="margin_start_player">24dp</dimen>
+    <dimen name="icon_size">24dp</dimen>
+    <dimen name="toolbar_elevation">12dp</dimen>
 </resources>

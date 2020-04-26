@@ -8,9 +8,7 @@ import com.brilliancesoft.xplayer.R
 import com.brilliancesoft.xplayer.ui.commen.windowControllers.BaseActivity
 import com.brilliancesoft.xplayer.utils.viewExtensions.doOnApplyWindowInsets
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_welecome.*
-import kotlinx.android.synthetic.main.content_main.*
 
 class WelcomeActivity : BaseActivity() {
 
@@ -29,7 +27,7 @@ class WelcomeActivity : BaseActivity() {
                     welcomeRootView.updatePadding(top = originalPadding.top + insets.systemWindowInsetTop)
             }
         } else
-            welcomeRootView.updatePadding(top = tabsMain.paddingTop + dp(24))
+            welcomeRootView.updatePadding(top = welcomeRootView.paddingTop + dp(24))
 
         signInTestAccount()
         userErrorNotifier()

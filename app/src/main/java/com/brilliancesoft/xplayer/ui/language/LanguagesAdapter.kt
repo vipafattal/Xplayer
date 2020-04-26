@@ -6,7 +6,7 @@ import com.abed.magentaX.android.views.listeners.onClick
 import com.brilliancesoft.xplayer.R
 import com.brilliancesoft.xplayer.model.Language
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.BaseRecyclerAdapter
-import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.ItemPressListener
+import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.RecyclerPressListener
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.RecyclerViewHolder
 import kotlinx.android.synthetic.main.item_language.view.*
 
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_language.view.*
  */
 class LanguagesAdapter(
     dataList: List<Language>,
-    private val itemPressListener: ItemPressListener<Language>
+    private val recyclerPressListener: RecyclerPressListener<Language>
 ) : BaseRecyclerAdapter<Language>(dataList) {
 
     private var selectedViewImage: ImageView? = null
@@ -29,7 +29,7 @@ class LanguagesAdapter(
 
             onClick {
                 updatedSelectedView()
-                itemPressListener.onItemClick(language)
+                recyclerPressListener.onItemClick(language,-1)
             }
 
         }

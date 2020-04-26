@@ -1,72 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="0.65dp"
-        android:background="@color/white"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="15dp"
-        android:paddingEnd="10dp"
-        tools:targetApi="m">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/media_mar_top"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/media_hor_padding">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/media_card_avater"
+            android:layout_width="@dimen/media_avater_width"
+            android:layout_height="@dimen/media_avater_height"
+            app:cardBackgroundColor="?colorPrimaryDark"
+            app:cardCornerRadius="@dimen/media_avater_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="@dimen/media_avater_card_stroke">
+
+        <ImageView
+                android:id="@+id/media_avater"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/media_avater_padding"
+                tools:srcCompat="@drawable/ic_media_avater1" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+            android:id="@+id/media_surah_name"
+            style="@style/AppTheme.Text.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toEndOf="@+id/media_card_avater"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/tools_surah_al_anam" />
+
+    <TextView
+            android:id="@+id/media_reciter_name"
+            style="@style/AppTheme.Text.Secondary1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/media_surah_name"
+            app:layout_constraintTop_toBottomOf="@+id/media_surah_name"
+            tools:text="@string/tools_reciter_maharialafasy" />
+
+
+    <com.google.android.material.chip.Chip
+            android:id="@+id/media_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="18dp"
+            android:text="@string/play"
+            android:textColor="#000"
+            android:textSize="12sp"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipIcon="@drawable/ic_play_button"
+            app:chipStrokeColor="@color/secondaryColor"
+            app:chipStrokeWidth="1.5dp"
+            app:chipSurfaceColor="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/media_card_avater" />
 
-        <TextView
-                android:id="@+id/mediaTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textAppearance="@style/AppTheme.Text.Body3"
-                android:textColor="?android:textColorPrimary"
-                tools:text="Al-Fatiah" />
-
-        <TextView
-                android:id="@+id/mediaSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/AppTheme.Text.Secondary"
-                tools:text="@string/app_name" />
-    </LinearLayout>
 
     <ImageView
-            android:id="@+id/mediaDownloadedImage"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:tint="@color/colorTextSecondary"
-            app:layout_constraintBottom_toBottomOf="@+id/mediaItemButton"
-            app:layout_constraintEnd_toStartOf="@+id/mediaItemButton"
-            app:layout_constraintTop_toTopOf="@+id/mediaItemButton"
-            app:layout_constraintVertical_bias="0.52"
-            app:srcCompat="@drawable/ic_download_done" />
-
-    <ImageView
-            android:id="@+id/mediaItemButton"
-            android:layout_width="@dimen/iconButtonSize"
-            android:layout_height="@dimen/iconButtonSize"
-            android:layout_marginEnd="16dp"
+            android:id="@+id/media_add_to_playlist"
+            android:layout_width="@dimen/download_size"
+            android:layout_height="@dimen/download_size"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:tint="@color/colorAccentLight"
+            app:layout_constraintBottom_toBottomOf="@+id/media_play"
+            app:layout_constraintStart_toEndOf="@+id/media_play"
+            app:layout_constraintTop_toTopOf="@+id/media_play"
+            app:srcCompat="@drawable/ic_playlist_add" />
+    <ImageView
+            android:id="@+id/media_download"
+            android:layout_width="@dimen/download_size"
+            android:layout_height="@dimen/download_size"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="?selectableItemBackgroundBorderless"
+            app:layout_constraintBottom_toBottomOf="@+id/media_play"
+            app:layout_constraintStart_toEndOf="@+id/media_add_to_playlist"
+            app:layout_constraintTop_toTopOf="@+id/media_play"
+            app:srcCompat="@drawable/ic_downloaded" />
+
+    <ProgressBar
+            android:id="@+id/media_download_loading"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/media_download"
+            app:layout_constraintStart_toStartOf="@+id/media_download"
+            app:layout_constraintTop_toTopOf="@+id/media_play"
+            tools:visibility="visible" />
+
+    <TextView
+            android:id="@+id/playingMediaDataText"
+            style="@style/AppTheme.Text.Secondary2.Italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTextSecondary"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/media_play"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_expand_more"
-            tools:targetApi="lollipop" />
+            app:layout_constraintTop_toTopOf="@+id/media_play"
+            tools:text="apr 7"
+            tools:visibility="visible" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

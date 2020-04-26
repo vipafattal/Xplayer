@@ -1,58 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.github.florent37.shapeofview.shapes.RoundRectView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="100dp"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_marginStart="20dp"
-        android:elevation="4dp"
-        android:layout_marginBottom="4dp"
-        app:cardCornerRadius="8dp"
-        app:shape_roundRect_topLeftRadius="@dimen/radio_item_radius"
-        app:shape_roundRect_topRightRadius="@dimen/radio_item_radius"
-        app:shape_roundRect_bottomLeftRadius="@dimen/radio_item_radius"
-        app:shape_roundRect_bottomRightRadius="@dimen/radio_item_radius"
-        android:layout_height="120dp"
-        tools:targetApi="lollipop">
-    <ImageView
-            android:background="@drawable/radio_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    <LinearLayout
-            android:padding="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="12dp">
 
-        <TextView
+    <com.github.florent37.shapeofview.ShapeOfView
+            android:layout_gravity="center"
+            android:elevation="12dp"
+            app:shape_clip_drawable="@drawable/ic_radio_shape"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:minHeight="125dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="15dp">
 
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:id="@+id/radioNameTextView"
-                android:textColor="?textWithBackgroundColor"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Amazing \nRecitation" />
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_radio_shape" />
 
-        <Space
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-        <TextView
-                android:id="@+id/listenRadioButton"
-                android:layout_gravity="end"
-                android:textColor="?textWithBackgroundColor"
-                android:text="@string/listenTo"
-                android:padding="2dp"
-                android:clickable="true"
-                android:background="?selectableItemBackground"
-                android:gravity="end|center_vertical"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:focusable="true" />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="4dp">
 
-    </LinearLayout>
-</com.github.florent37.shapeofview.shapes.RoundRectView>
+            <TextView
+                    android:id="@+id/radioNameTextView"
+                    style="@style/AppTheme.Text.Body2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:ellipsize="end"
+                    android:textColor="?textWithBackgroundColor"
+                    tools:text="Amazing \nRecitation" />
+
+            <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/listenRadioButton"
+                    style="@style/AppTheme.Text.Body3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/listenTo"
+                    android:textColor="?textWithBackgroundColor"
+                    android:textSize="14sp"
+                    app:drawableEndCompat="@drawable/ic_play_stroked" />
+
+        </LinearLayout>
+    </com.github.florent37.shapeofview.ShapeOfView>
+</FrameLayout>

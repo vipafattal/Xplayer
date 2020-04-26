@@ -18,7 +18,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="vertical"
-                tools:context=".ui.surahList.TruckListFragment">
+                tools:context=".ui.surahList.SurahListFragment">
 
             <LinearLayout
                     android:layout_width="match_parent"

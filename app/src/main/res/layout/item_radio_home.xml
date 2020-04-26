@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="110dp"
+        android:layout_marginTop="14dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="15dp">
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_radio_shape" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+        <TextView
+                android:layout_margin="2dp"
+                style="@style/AppTheme.Text.Body1"
+                android:id="@+id/radioNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="?textWithBackgroundColor"
+                tools:text="Amazing \nRecitation" />
+
+        <Space
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <com.google.android.material.textview.MaterialTextView
+                style="@style/AppTheme.Text.Body3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/listenRadioButton"
+                android:textSize="14sp"
+                app:drawableEndCompat="@drawable/ic_play_stroked"
+                android:text="@string/listenTo"
+                android:textColor="?textWithBackgroundColor" />
+
+    </LinearLayout>
+</FrameLayout>

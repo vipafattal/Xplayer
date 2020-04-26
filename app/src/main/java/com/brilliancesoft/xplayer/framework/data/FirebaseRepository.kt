@@ -64,8 +64,6 @@ class FirebaseRepository(
             if (isAdd) FieldValue.arrayUnion(media)
             else FieldValue.arrayRemove(media)
         ).addOnCompleteListener {
-
-
             result.postValue(it.isSuccessful)
         }
 
@@ -78,7 +76,7 @@ class FirebaseRepository(
         addSnapshotListener { snapshot, error ->
 
             if (error != null) {
-                errorStream.onNext("An error occurred while getting your playlist")
+                errorStream.onNext("An error occurred while getting your playlists")
                 Log.v("Firestore Logger", error.message ?: "Unknown error")
                 return@addSnapshotListener
             }
@@ -97,7 +95,7 @@ class FirebaseRepository(
         val playListLiveData = MutableLiveData<List<T>>()
         addSnapshotListener(activity) { snapshot, error ->
             if (error != null) {
-                errorStream.onNext("An error occurred while getting your playlist")
+                errorStream.onNext("An error occurred while getting your playlists")
                 Log.v("Firestore Logger", error.message ?: "Unknown error")
                 return@addSnapshotListener
             }

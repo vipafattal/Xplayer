@@ -22,7 +22,7 @@ class LanguagesViewModel(private val repository: Repository) : ViewModel() {
         if (!::_languagesData.isInitialized)
             _languagesData = MutableLiveData()
 
-        if (_languagesData.value == null) {
+        if (_languagesData.value == null || _languagesData.value!!.isEmpty()) {
             viewModelScope.launch {
                 val languages = withContext(Dispatchers.IO) { repository.getSupportedLanguages() }
                 _languagesData.value = languages

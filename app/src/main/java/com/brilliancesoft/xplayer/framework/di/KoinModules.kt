@@ -1,15 +1,20 @@
 package com.brilliancesoft.xplayer.framework.di
 
+import androidx.room.Room
 import com.abed.magentaX.android.utils.AppPreferences
 import com.brilliancesoft.xplayer.BASE_URL
 import com.brilliancesoft.xplayer.BuildConfig
 import com.brilliancesoft.xplayer.framework.api.QuranMp3
 import com.brilliancesoft.xplayer.framework.data.FirebaseRepository
+import com.brilliancesoft.xplayer.framework.data.LocalRepository
 import com.brilliancesoft.xplayer.framework.data.Repository
-import com.brilliancesoft.xplayer.ui.downloaded.DownloadedViewModel
+import com.brilliancesoft.xplayer.framework.db.AppDatabase
+import com.brilliancesoft.xplayer.ui.user_activity.downloaded.DownloadedViewModel
+import com.brilliancesoft.xplayer.ui.user_activity.history.HistoryViewModel
+import com.brilliancesoft.xplayer.ui.user_activity.playlist.PlaylistViewModel
+import com.brilliancesoft.xplayer.ui.commen.XplayerApplication
 import com.brilliancesoft.xplayer.ui.home.HomeViewModel
 import com.brilliancesoft.xplayer.ui.language.LanguagesViewModel
-import com.brilliancesoft.xplayer.ui.playlist.PlaylistViewModel
 import com.brilliancesoft.xplayer.ui.surahList.SurahViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,20 +33,43 @@ import java.util.concurrent.TimeUnit
 
 object KoinModules {
 
-    val dataSource = module {
+    val viewModelFactory = module {
+        viewModel { HomeViewModel(get()) }
+        viewModel { DownloadedViewModel(get()) }
+        viewModel { PlaylistViewModel(get()) }
+        viewModel { SurahViewModel(get()) }
+        viewModel { LanguagesViewModel(get()) }
+        viewModel { HistoryViewModel(get()) }
+    }
+
+    val repositories = module {
         single {
             Repository(get())
         }
 
         single {
-            FirebaseRepository(get(),get())
+            FirebaseRepository(get(), get())
+        }
+
+        single {
+            LocalRepository(get())
+        }
+    }
+
+    val dataProviders = module {
+
+        single {
+            Room.databaseBuilder(
+                XplayerApplication.app,
+                AppDatabase::class.java,
+                XplayerApplication.appName
+            ).build().appDao()
         }
 
         factory {
             AppPreferences()
         }
     }
-
     val QuranMp3API = module {
         single<QuranMp3> {
             val logger = HttpLoggingInterceptor()
@@ -65,19 +93,9 @@ object KoinModules {
         }
     }
 
-    val viewModelFactory = module {
-        viewModel { HomeViewModel(get()) }
-        viewModel { DownloadedViewModel() }
-        viewModel { PlaylistViewModel(get()) }
-        viewModel { SurahViewModel(get()) }
-        viewModel { LanguagesViewModel(get()) }
-    }
-
     val firebaseAPIs = module {
         factory { FirebaseFirestore.getInstance() }
         factory { FirebaseAuth.getInstance() }
-
     }
-
 
 }

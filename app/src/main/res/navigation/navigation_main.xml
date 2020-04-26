@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/bottom_main_navigation"
+        app:startDestination="@id/homeFragment">
+
+    <fragment
+            tools:layout="@layout/fragment_home"
+            android:id="@+id/homeFragment"
+            android:name="com.brilliancesoft.xplayer.ui.home.HomeFragment"
+            android:label="HomeFragment" >
+        <action
+                android:id="@+id/action_homeFragment_to_truckListFragment"
+                app:destination="@id/truckListFragment" />
+        <action
+                android:id="@+id/action_homeFragment_to_userActivityFragment"
+                app:destination="@id/userActivityFragment" />
+        <action
+                android:id="@+id/action_homeFragment_to_reciterMoreFragment"
+                app:destination="@id/reciterMoreFragment" />
+        <action
+                android:id="@+id/action_homeFragment_to_radioMoreFragment"
+                app:destination="@id/radioMoreFragment" />
+    </fragment>
+
+    <fragment
+            tools:layout="@layout/fragment_reciter_list"
+            android:id="@+id/truckListFragment"
+            android:name="com.brilliancesoft.xplayer.ui.surahList.SurahListFragment"
+            android:label="SurahListFragment" >
+        <argument android:name="reciterTruckListArg"
+                app:argType="string" />
+    </fragment>
+
+    <fragment
+            tools:layout="@layout/fragment_search"
+            android:id="@+id/searchFragment"
+            android:name="com.brilliancesoft.xplayer.ui.SearchFragment"
+            android:label="SearchFragment" />
+    <fragment
+            android:id="@+id/userActivityFragment"
+            android:name="com.brilliancesoft.xplayer.ui.user_activity.UserActivityFragment"
+            android:label="fragment_user_activity"
+            tools:layout="@layout/fragment_user_activity" >
+        <action
+                android:id="@+id/action_userActivityFragment_to_mediaPlaylistFragment"
+                app:destination="@id/mediaPlaylistFragment" />
+        <argument
+                android:name="openTabNumber"
+                app:argType="integer"
+                android:defaultValue="0" />
+    </fragment>
+    <fragment
+            android:id="@+id/mediaPlaylistFragment"
+            android:name="com.brilliancesoft.xplayer.ui.user_activity.playlist.MediaPlaylistFragment"
+            android:label="fragment_media_playlist"
+            tools:layout="@layout/fragment_media_playlist" >
+        <argument android:name="playlistMediaListArg" />
+    </fragment>
+    <fragment
+            tools:layout="@layout/fragment_more_reciter"
+            android:id="@+id/reciterMoreFragment"
+            android:name="com.brilliancesoft.xplayer.ui.home.reciter.ReciterMoreFragment"
+            android:label="ReciterMoreFragment" >
+        <argument
+                android:name="recitersNumber"
+                app:argType="integer"
+                android:defaultValue="12" />
+        <action
+                android:id="@+id/action_reciterMoreFragment_to_truckListFragment"
+                app:destination="@id/truckListFragment" />
+    </fragment>
+    <fragment
+            tools:layout="@layout/fragment_more_radio"
+            android:id="@+id/radioMoreFragment"
+            android:name="com.brilliancesoft.xplayer.ui.home.radio.RadioMoreFragment"
+            android:label="RadioMoreFragment" >
+        <argument
+                android:name="radiosNumber"
+                app:argType="integer"
+                android:defaultValue="7" />
+    </fragment>
+
+</navigation>

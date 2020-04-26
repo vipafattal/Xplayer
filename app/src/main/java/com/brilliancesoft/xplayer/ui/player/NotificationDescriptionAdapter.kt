@@ -17,13 +17,13 @@ class NotificationDescriptionAdapter(private val playList: List<Media>) :
 
     override fun getCurrentContentTitle(player: Player): String {
         val window = player.currentWindowIndex
-        return playList[window].title
+        return playList[window].reciterName
     }
 
 
     override fun getCurrentContentText(player: Player): String? {
         val window = player.currentWindowIndex
-        return playList[window].subtitle
+        return playList[window].surahName
     }
 
     private val icon = drawableOf(R.drawable.ic_logo_24dp)!!
@@ -42,9 +42,9 @@ class NotificationDescriptionAdapter(private val playList: List<Media>) :
     }
 
     override fun createCurrentContentIntent(player: Player): PendingIntent? {
-        val notificationIntent = Intent(XplayerApplication.appContext, MainActivity::class.java)
+        val notificationIntent = Intent(XplayerApplication.app, MainActivity::class.java)
 
-        return PendingIntent.getActivity(XplayerApplication.appContext, 0, notificationIntent,  PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(XplayerApplication.app, 0, notificationIntent,  PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
 

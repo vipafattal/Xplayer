@@ -44,12 +44,12 @@ class XplayerToast {
         }
 
         @JvmStatic
-        fun makeShort(context: Context = XplayerApplication.appContext, message: String) {
+        fun makeShort(context: Context = XplayerApplication.app, message: String) {
             make(context, message, Toast.LENGTH_SHORT)
         }
 
         @JvmStatic
-        fun makeLong(context: Context = XplayerApplication.appContext, message: String) {
+        fun makeLong(context: Context = XplayerApplication.app, message: String) {
             make(context, message, Toast.LENGTH_LONG)
         }
 

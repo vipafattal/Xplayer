@@ -46,9 +46,11 @@
                     android:layout_height="match_parent"
                     android:hint="@string/name"
                     android:maxLines="1"
+                    android:inputType="text"
+                    android:singleLine="true"
                     tools:text="@string/app_name"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout

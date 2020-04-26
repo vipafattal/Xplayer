@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginTop="0.65dp"
         android:paddingStart="15dp"
@@ -15,19 +15,19 @@
         tools:targetApi="m">
 
     <TextView
-            android:id="@+id/surahName"
+            android:id="@+id/surah_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
             android:textColor="?android:textColorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Al-Fatiah" />
 
     <ImageView
-            android:id="@+id/reciterSurahButton"
+            android:id="@+id/surah_more_option"
             android:layout_width="@dimen/iconButtonSize"
             android:layout_height="@dimen/iconButtonSize"
             android:layout_marginEnd="16dp"
@@ -41,18 +41,61 @@
             app:srcCompat="@drawable/ic_expand_more"
             tools:targetApi="lollipop" />
 
+
     <ImageView
-            android:tint="@color/colorTextSecondary"
-            android:background="?attr/selectableItemBackground"
-            android:id="@+id/mediaDownloadImage"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
+            android:id="@+id/surah_download_image"
+            android:layout_width="@dimen/download_size"
+            android:layout_height="@dimen/download_size"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="?selectableItemBackgroundBorderless"
+            app:layout_constraintBottom_toBottomOf="@+id/surah_play"
+            app:layout_constraintStart_toEndOf="@+id/surah_add_to_playlist"
+            app:layout_constraintTop_toTopOf="@+id/surah_play"
+            app:srcCompat="@drawable/ic_downloaded" />
+
+    <ProgressBar
+            android:id="@+id/surah_download_loading"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/reciterSurahButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.52"
+            app:layout_constraintEnd_toEndOf="@+id/surah_download_image"
+            app:layout_constraintStart_toStartOf="@+id/surah_download_image"
+            app:layout_constraintTop_toTopOf="@+id/surah_play"
+            tools:visibility="visible" />
+
+
+
+    <ImageView
+            android:id="@+id/surah_add_to_playlist"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginStart="20dp"
+            android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            app:srcCompat="@drawable/ic_download_done" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/surah_play"
+            app:layout_constraintTop_toTopOf="@+id/surah_play"
+            app:srcCompat="@drawable/ic_playlist_add" />
+
+    <com.google.android.material.chip.Chip
+            android:id="@+id/surah_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:paddingHorizontal="18dp"
+            android:text="@string/play"
+            android:textColor="#000"
+            android:textSize="12sp"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipIcon="@drawable/ic_play_button"
+            app:chipStrokeColor="@color/secondaryColor"
+            app:chipStrokeWidth="1.5dp"
+            app:chipSurfaceColor="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="@+id/surah_name"
+            app:layout_constraintTop_toBottomOf="@+id/surah_name" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
             app:showAsAction="never"
-            android:id="@+id/addToHomeScreenItem"
+            android:id="@+id/create_reciter_icon"
             android:title="@string/add_to_home_screen" />
+    <item
+            app:showAsAction="never"
+            android:id="@+id/play_all_list_item"
+            android:title="@string/play_all" />
 </menu>

@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.brilliancesoft.xplayer.framework.data.Repository
 import com.brilliancesoft.xplayer.model.Radio
 import com.brilliancesoft.xplayer.model.Reciter
+import com.brilliancesoft.xplayer.ui.commen.UserPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.UnstableDefault
 
 /**
  * Created by  on
@@ -18,37 +18,41 @@ import kotlinx.serialization.UnstableDefault
 class HomeViewModel(
     private val repository: Repository
 ) : ViewModel() {
-    private lateinit var radiosData: MutableLiveData<List<Radio>>
-    private lateinit var recitersData: MutableLiveData<List<Reciter>>
 
-    fun getRadioList(language:String): LiveData<List<Radio>> {
-        if (!::radiosData.isInitialized)
-            radiosData = MutableLiveData()
+    private lateinit var radiosLiveData: MutableLiveData<List<Radio>>
+    private lateinit var recitersLiveData: MutableLiveData<List<Reciter>>
+    private val language = UserPreferences.getAppLanguage()!!.language
 
-        if (radiosData.value == null) {
-            viewModelScope.launch {
-                val radios =
-                    withContext(Dispatchers.IO) { repository.getRadiosByLanguage(language) }
-                radiosData.value = radios
-            }
+    init {
+        if (!::recitersLiveData.isInitialized) {
+            recitersLiveData = MutableLiveData()
+            radiosLiveData = MutableLiveData()
         }
-
-        return radiosData
     }
 
-    @UnstableDefault
-    fun getRecitersList(language: String): LiveData<List<Reciter>> {
-        if (!::recitersData.isInitialized)
-            recitersData = MutableLiveData()
-
-        if (recitersData.value == null) {
-            viewModelScope.launch {
-                val reciters = withContext(Dispatchers.IO) { repository.getReciters(language) }
-                recitersData.value = reciters
-            }
+    fun getRadioList(): LiveData<List<Radio>> {
+        viewModelScope.launch {
+            if (radios.isEmpty())
+                radios =
+                    withContext(Dispatchers.IO) { repository.getRadiosByLanguage(language) }
+            radiosLiveData.value = radios
         }
 
-        return recitersData
+        return radiosLiveData
+    }
+
+    fun getRecitersList(): LiveData<List<Reciter>> {
+        viewModelScope.launch {
+            if (reciters.isEmpty())
+                reciters = withContext(Dispatchers.IO) { repository.getReciters(language) }
+            recitersLiveData.value = reciters
+        }
+        return recitersLiveData
+    }
+
+    companion object {
+        private var reciters = listOf<Reciter>()
+        private var radios = listOf<Radio>()
     }
 
 }

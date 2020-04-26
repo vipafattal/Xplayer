@@ -10,7 +10,8 @@ object KoinComponent {
     val appComponent: List<Module> =
         listOf(
             KoinModules.QuranMp3API,
-            KoinModules.dataSource,
+            KoinModules.dataProviders,
+            KoinModules.repositories,
             KoinModules.viewModelFactory,
             KoinModules.firebaseAPIs
         )

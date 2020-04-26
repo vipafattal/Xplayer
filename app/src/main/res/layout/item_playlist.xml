@@ -1,41 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:minHeight="120dp"
         android:paddingStart="15dp"
-        android:paddingEnd="10dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:paddingEnd="10dp">
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="8dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="8dp" />
 
     <TextView
-            android:id="@+id/playlistName"
+            android:id="@+id/playlist_name"
+            style="@style/AppTheme.Text.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:textColor="?android:textColorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Playlist name" />
 
-    <ImageView
-            android:id="@+id/playButtonPlaylist"
-            android:layout_width="@dimen/iconButtonSize"
-            android:layout_height="@dimen/iconButtonSize"
-            android:layout_marginEnd="16dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:tint="@color/colorAccentLight"
+
+    <TextView
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constrainedWidth="true"
+            android:id="@+id/playlist_content"
+            style="@style/AppTheme.Text.Secondary1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/playlist_name"
+            tools:text="Al-An'am, Al-Baqra, Abdulaziz Al....." />
+
+    <TextView
+            android:id="@+id/number_of_media_playlist"
+            style="@style/AppTheme.Text.Secondary2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/playlist_play"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/playlist_play"
+            tools:text="56 Surahs" />
+
+    <com.google.android.material.chip.Chip
+            android:id="@+id/playlist_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="18dp"
+            android:text="@string/play"
+            android:textColor="#000"
+            android:textSize="12sp"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipIcon="@drawable/ic_play_button"
+            app:chipStrokeColor="@color/secondaryColor"
+            app:chipStrokeWidth="1.5dp"
+            app:chipSurfaceColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_play_button"
-            tools:targetApi="lollipop" />
+            app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

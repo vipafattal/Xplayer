@@ -1,23 +1,21 @@
 package com.brilliancesoft.xplayer.ui.home
 
-import android.os.Bundle
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
-import com.abed.magentaX.android.fragments.transaction
-import com.abed.magentaX.android.utils.AppPreferences
+import androidx.navigation.findNavController
+import com.abed.magentaX.android.utils.screenHelpers.dp
 import com.abed.magentaX.android.views.visible
 import com.brilliancesoft.xplayer.R
-import com.brilliancesoft.xplayer.commen.PreferencesKeys
-import com.brilliancesoft.xplayer.model.Radio
-import com.brilliancesoft.xplayer.model.Reciter
-import com.brilliancesoft.xplayer.ui.MainActivity
-import com.brilliancesoft.xplayer.ui.commen.sharedComponent.recyclerView.ItemPressListener
+import com.brilliancesoft.xplayer.model.Media
 import com.brilliancesoft.xplayer.ui.commen.windowControllers.BaseFragment
-import com.brilliancesoft.xplayer.ui.surahList.TruckListFragment
+import com.brilliancesoft.xplayer.ui.user_activity.UserActivityFragment
+import com.brilliancesoft.xplayer.ui.user_activity.history.HistoryViewModel
 import com.brilliancesoft.xplayer.utils.observer
-
+import com.brilliancesoft.xplayer.utils.viewExtensions.animateElevation
+import com.brilliancesoft.xplayer.utils.viewExtensions.hideCard
+import com.brilliancesoft.xplayer.utils.viewExtensions.showCard
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.koin.android.ext.android.inject
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -27,83 +25,46 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 class HomeFragment : BaseFragment() {
 
-
-    private val homeViewModel: HomeViewModel by viewModel()
-
-    private val recitersList = mutableListOf<Reciter>()
-    private val radioList = mutableListOf<Radio>()
-    private val recitersAdapter = RecitersAdapter(recitersList, reciterPressListener)
-    private val radioAdapter = RadioAdapter(radioList)
-    private val appPreferences: AppPreferences by inject()
+    private var historyMediaList = listOf<Media>()
+    private val historyViewModel by viewModel<HistoryViewModel>()
 
     override var layoutId: Int = R.layout.fragment_home
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onActivityCreated() {
+        rootView.homeNestedScroll.setOnScrollChangeListener { v: NestedScrollView, _, scrollY: Int, _, oldScrollY: Int ->
+            val dy = scrollY - oldScrollY
 
-        recitersRecycler.adapter = recitersAdapter
-        radioRecycler.adapter = radioAdapter
+            if (dy < 0) rootView.homeAppBar.showCard()
+            else if (dy > 0 && scrollY > dp(24)) rootView.homeAppBar.hideCard()
 
-        loadData()
-    }
-
-    private val numberOfDataLoading = MutableLiveData(0)
-
-    override fun loadData() {
-        super.loadData()
-
-        val language = appPreferences.getStr(PreferencesKeys.RECITING_LANGUAGE)
-
-        homeViewModel.getRadioList(language).observer(viewLifecycleOwner) { radio ->
-            if (radio.isNotEmpty()) {
-                numberOfDataLoading.postValue(numberOfDataLoading.value!!.inc())
-                radioList.addAll(radio)
-                dataLoaded()
-            } else
-                showErrorView()
-
+            if (scrollY < dp(12) || scrollY <= 0) rootView.homeAppBar.animateElevation(true)
+            else if (scrollY > dp(56)) rootView.homeAppBar.animateElevation(false)
         }
 
-        @Suppress("EXPERIMENTAL_API_USAGE")
-        homeViewModel.getRecitersList(language).observer(viewLifecycleOwner) { reciters ->
-            if (reciters.isNotEmpty()) {
-                numberOfDataLoading.postValue(numberOfDataLoading.value!!.inc())
-                recitersList.addAll(reciters)
-                dataLoaded()
-            } else
-                showErrorView()
-        }
+        initRecentHeader()
     }
 
-    private fun dataLoaded() {
-        if (recitersList.isNotEmpty() && radioList.isNotEmpty()) {
-            loadingCompleted()
 
-            recitersTitle.visible()
-            recitersAdapter.notifyDataSetChanged()
+    private fun initRecentHeader() {
 
-            if (radioList.first().url != ""){
-                //TODO uncomment this line after test & rest radioList visibility.
-                //radiosTitle.visible()
-                radioAdapter.notifyDataSetChanged()
+        historyViewModel.getMediaWithHistory(6).observer(this) {
+            historyMediaList = (it)
+
+            if (historyMediaList.isNotEmpty()) {
+                recentTitle.visible()
+                moreRecent.visible()
+                recentRecycler.adapter = RecentAdapter(historyMediaList)
             }
 
-        }
-    }
-
-    private val reciterPressListener: ItemPressListener<Reciter>
-        get() = object :
-            ItemPressListener<Reciter> {
-            override fun onItemClick(data: Reciter) {
-                parentFragmentManager.transaction {
-                    replace(
-                        R.id.fragmentHost,
-                        TruckListFragment.getInstance(data),
-                        TruckListFragment.TAG
+            moreRecent.setOnClickListener {
+                it.findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToUserActivityFragment(
+                        UserActivityFragment.HISTORY_TAB_NUMBER
                     )
-                    addToBackStack(null)
-                }
+                )
             }
+
         }
 
+    }
 }

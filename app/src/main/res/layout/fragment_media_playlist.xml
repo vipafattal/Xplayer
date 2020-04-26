@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".ui.playlist.MediaPlaylistFragment">
+        tools:context=".ui.user_activity.playlist.MediaPlaylistFragment">
 
    <include layout="@layout/toolbar_details"/>
 
@@ -14,13 +14,13 @@
             android:id="@+id/mediaPlaylistRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ECEFF1"
+            android:background="#fff"
             android:layoutAnimation="@anim/layout_animation_fall_down"
             android:orientation="vertical"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:spanCount="2"
             tools:layoutAnimation="@null"
-            tools:listitem="@layout/item_media" />
+            tools:listitem="@layout/item_media"
+            />
 
 </LinearLayout>

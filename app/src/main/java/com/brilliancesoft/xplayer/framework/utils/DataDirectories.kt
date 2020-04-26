@@ -10,24 +10,24 @@ import java.io.File
  */
 object DataDirectories {
 
-    private val rootFolder = XplayerApplication.appContext.getString(R.string.app_name)
+    private val rootFolder = XplayerApplication.app.getString(R.string.app_name)
     private val recitersFolder = "reciters"
 
     /**
-     * Creates a [File] with specific folder name [Media.title] and file name [Media.title].
+     * Creates a [File] with specific folder name [Media.reciterName] and file name [Media.reciterName].
      **/
     fun buildSurahFile(media: Media): File {
         return File(
-            XplayerApplication.appContext.getExternalFilesDir(null),
+            XplayerApplication.app.getExternalFilesDir(null),
             getReciterSurahPath(
-                media.title,
-                media.subtitle!!
+                media.reciterName,
+                media.surahName
             )
         )
     }
 
     fun getRecitersFolder() = File(
-        XplayerApplication.appContext.getExternalFilesDir(null),
+        XplayerApplication.app.getExternalFilesDir(null),
         "$rootFolder/$recitersFolder/"
     )
 

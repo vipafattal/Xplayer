@@ -6,6 +6,7 @@
         <item name="colorControlNormal">@color/colorTextSecondary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="fontFamily">@font/open_sans</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowTranslucentStatus">true</item>
@@ -13,9 +14,10 @@
         <item name="colorBackgroundToast">#E6121314</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="android:textColorSecondary">#E5E5E5</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark
+        </item>
         <item name="android:colorBackground">@android:color/white</item>
         <item name="dividerColor">#66707070</item>
 
@@ -24,28 +26,8 @@
         <item name="textWithBackgroundColor">#fff</item>
     </style>
 
-
-    <style name="AppTheme2" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorControlNormal">@color/colorTextSecondary</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorBackgroundToast">#E6121314</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="android:textColorSecondary">#E5E5E5</item>
-        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
-        <item name="android:colorBackground">@android:color/white</item>
-        <item name="dividerColor">#66707070</item>
-
-        <item name="android:textColorPrimary">#000</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="textWithBackgroundColor">#fff</item>
+    <style name="BottomNavigationActive">
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="popupMenu" parent="AppTheme">
@@ -53,8 +35,9 @@
     </style>
 
     <style name="TabText" parent="AppTheme">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
     </style>
 
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
@@ -66,15 +49,60 @@
     </style>
 
 
-    <style name="AppTheme.Text.Body3"  parent="@style/TextAppearance.MaterialComponents.Body1">
-        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+    <style name="AppTheme.Text.Body1" parent="@style/TextAppearance.MaterialComponents.Body1">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/colorTextSecondary</item>
     </style>
 
-    <style name="AppTheme.Text.Secondary"  parent="@style/TextAppearance.MaterialComponents.Body1">
+    <style name="AppTheme.Text.Body2" parent="@style/TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">15sp</item>
+    </style>
+   <style name="AppTheme.Text.Body3" parent="@style/TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">14sp</item>
+       <item name="fontFamily">@font/open_sans_semibold</item>
+    </style>
+
+    <style name="AppTheme.Text.Secondary2.Italic">
+        <item name="fontFamily">@font/open_sans_italic</item>
+    </style>
+
+
+    <style name="AppTheme.Text.Secondary1" parent="@style/TextAppearance.MaterialComponents.Body1">
         <item name="android:textColorSecondary">@color/colorTextSecondary</item>
         <item name="android:textColor">@color/colorTextSecondary</item>
     </style>
 
+    <style name="AppTheme.Text.Secondary2" parent="@style/TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="AppTheme.Text.Secondary3" parent="@style/TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="AppTheme.Text.HeadLine" parent="@style/TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/open_sans_bold</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="AppTheme.Text.HeadLine2" parent="@style/TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/open_sans_bold</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="AppTheme.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">13sp</item>
+        <item name="iconGravity">end</item>
+        <item name="iconSize">18dp</item>
+        <item name="iconTint">@color/colorAccent</item>
+    </style>
+
+
+    <style name="ChipCustomStyle" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="checkedIconEnabled">false</item>
+        <item name="checkedIcon">@null</item>
+    </style>
 </resources>

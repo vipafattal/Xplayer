@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shortcut_created">Shortcut created</string>
+    <string name="home">الرئيسية</string>
+    <string name="search">البحث</string>
+    <string name="activity">النشاط</string>
+    <string name="more">المزيد</string>
+    <string name="radio">الأستماع المباشر</string>
+    <string name="reciters">القرائ</string>
+    <string name="recent_play">أخر التشغيلات</string>
+    <string name="listenTo">إستماع</string>
+    <string name="play">تشغيل</string>
+
+</resources>

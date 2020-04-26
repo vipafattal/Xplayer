@@ -14,13 +14,9 @@ import com.brilliancesoft.xplayer.model.Media
 import com.brilliancesoft.xplayer.model.Playlist
 import com.brilliancesoft.xplayer.ui.commen.XplayerApplication
 import com.brilliancesoft.xplayer.ui.commen.sharedComponent.widgets.XplayerToast
-import com.brilliancesoft.xplayer.ui.player.helpers.Constants.PLAYBACK_CHANNEL_ID
-import com.brilliancesoft.xplayer.ui.player.helpers.Constants.PLAYBACK_NOTIFICATION_ID
 import com.brilliancesoft.xplayer.ui.player.helpers.MediaSourceBuilder
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
-import com.google.android.exoplayer2.source.DynamicConcatenatingMediaSource
-import com.google.android.exoplayer2.source.ShuffleOrder
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
@@ -34,12 +30,12 @@ class MediaPlayerService : Service() {
     private val serviceBinder = ServiceBinder()
     private var isRadio: Boolean = false
     private var currentPlayList: MutableList<Media> = mutableListOf()
-    var currentPlaylistId = ""
+    private var currentPlaylistId = ""
         private set
     var exoMediaSource: ConcatenatingMediaSource? = null
         private set
     private val bandwidthMeter =
-        DefaultBandwidthMeter.Builder(XplayerApplication.appContext).build()
+        DefaultBandwidthMeter.Builder(XplayerApplication.app).build()
     private var currentWindow = 0
     private var playbackPosition: Long = 0
     private var playerNotificationManager: PlayerNotificationManager? = null
@@ -74,7 +70,6 @@ class MediaPlayerService : Service() {
     }
 
     private fun initializePlayer() {
-
         val adaptiveTrackSelectionFactory = AdaptiveTrackSelection.Factory()
 
         exoPlayer = ExoPlayerFactory.newSimpleInstance(
@@ -109,8 +104,7 @@ class MediaPlayerService : Service() {
     }
 
     fun playMedia(playlist: Playlist, startAtPosition: Int) {
-        exoMediaSource = ConcatenatingMediaSource(MediaSourceBuilder.create(playlist.list))
-
+        exoMediaSource = MediaSourceBuilder.create(playlist.list)
         currentPlaylistId = playlist.id
 
         currentPlayList.clear()
@@ -118,17 +112,22 @@ class MediaPlayerService : Service() {
         //resting saved position for the new media create.
         currentWindow = startAtPosition
         playbackPosition = 0
-        exoPlayer.prepare(exoMediaSource, false, true)
+        exoPlayer.prepare(exoMediaSource, true, true)
         exoPlayer.seekTo(startAtPosition, C.TIME_UNSET)
         isRadio = false
-        //playerView.iconPlayPause.setImageResource(R.drawable.ic_pause)
         exoPlayer.playWhenReady = true
     }
 
     fun addToPlayingMedia(media: Media) {
         val newMediaDataSource = MediaSourceBuilder.create(media)
-        exoMediaSource!!.addMediaSource(exoMediaSource)
+        exoMediaSource!!.addMediaSource(newMediaDataSource)
         currentPlayList.add(newMediaDataSource.tag as Media)
+    }
+
+    fun removeFromPlayingMedia(media: Media) {
+        val removeIndex = currentPlayList.indexOfFirst { it.surahName == media.surahName }
+        currentPlayList.removeAt(removeIndex)
+        exoMediaSource!!.removeMediaSource(removeIndex)
     }
 
     fun resumePlayer() {
@@ -180,7 +179,7 @@ class MediaPlayerService : Service() {
 
     private fun bindNotificationManger() {
         playerNotificationManager =
-            PlayerNotificationManager.createWithNotificationChannel(XplayerApplication.appContext,
+            PlayerNotificationManager.createWithNotificationChannel(XplayerApplication.app,
                 PLAYBACK_CHANNEL_ID, R.string.playback_channel_name, R.string.xplayer_description,
                 PLAYBACK_NOTIFICATION_ID, NotificationDescriptionAdapter(currentPlayList),
                 object : PlayerNotificationManager.NotificationListener {
@@ -214,6 +213,10 @@ class MediaPlayerService : Service() {
 
     inner class ServiceBinder : Binder() {
         fun getService(): MediaPlayerService = this@MediaPlayerService
+    }
+    companion object {
+       private const val PLAYBACK_CHANNEL_ID = "xplayer_playback_channel"
+       private const val PLAYBACK_NOTIFICATION_ID = 11678
     }
 
 }

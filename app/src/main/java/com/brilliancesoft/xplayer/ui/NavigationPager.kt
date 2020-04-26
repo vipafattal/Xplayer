@@ -3,9 +3,9 @@ package com.brilliancesoft.xplayer.ui
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.brilliancesoft.xplayer.ui.downloaded.DownloadedMediaFragment
-import com.brilliancesoft.xplayer.ui.playlist.PlaylistFragment
-import com.brilliancesoft.xplayer.ui.home.HomeFragment
+import com.brilliancesoft.xplayer.ui.user_activity.history.HistoryFragment
+import com.brilliancesoft.xplayer.ui.user_activity.downloaded.DownloadedMediaFragment
+import com.brilliancesoft.xplayer.ui.user_activity.playlist.PlaylistFragment
 
 class NavigationPager(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
@@ -13,9 +13,9 @@ class NavigationPager(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     private val fragments = mutableMapOf<Int, Fragment>()
 
     private fun getFragment(position: Int) = when (position) {
-        0 -> HomeFragment()
+        0 -> DownloadedMediaFragment()
         1 -> PlaylistFragment()
-        else -> DownloadedMediaFragment()
+        else -> HistoryFragment()
     }
 
 

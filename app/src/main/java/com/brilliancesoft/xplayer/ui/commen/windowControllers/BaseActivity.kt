@@ -2,6 +2,7 @@ package com.brilliancesoft.xplayer.ui.commen.windowControllers
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
@@ -35,6 +36,7 @@ abstract class BaseActivity : AppCompatActivity() {
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        volumeControlStream = AudioManager.STREAM_MUSIC
         hideTitleBar()
     }
 

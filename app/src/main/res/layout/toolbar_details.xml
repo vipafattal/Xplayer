@@ -10,6 +10,7 @@
         app:elevation="0dp">
 
     <androidx.appcompat.widget.Toolbar
+            app:menu="@menu/menu_trucks"
             app:popupTheme="@style/popupMenu"
             android:id="@+id/detailsToolbar"
             android:layout_width="match_parent"

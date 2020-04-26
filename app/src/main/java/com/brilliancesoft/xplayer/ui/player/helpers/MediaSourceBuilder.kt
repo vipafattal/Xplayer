@@ -1,23 +1,25 @@
 package com.brilliancesoft.xplayer.ui.player.helpers
 
 import android.net.Uri
-import androidx.core.net.toUri
-import com.brilliancesoft.xplayer.framework.utils.DataDirectories
 import com.brilliancesoft.xplayer.model.Media
 import com.brilliancesoft.xplayer.ui.commen.XplayerApplication
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
-import com.google.android.exoplayer2.source.LoopingMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DataSpec
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.upstream.FileDataSource
+import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory
+import com.google.android.exoplayer2.upstream.cache.CacheUtil
 
 object MediaSourceBuilder {
 
 
-    fun create(mediaList: List<Media>, eachTruck: Int = 1, wholeSet: Int = 1): MediaSource {
+    fun create(
+        mediaList: List<Media>,
+        eachTruck: Int = 1,
+        wholeSet: Int = 1
+    ): ConcatenatingMediaSource {
         val mediaSourceArray = arrayOfNulls<MediaSource>(mediaList.size)
 
         for ((index, media) in mediaList.withIndex())
@@ -26,10 +28,7 @@ object MediaSourceBuilder {
             else
                 mediaSourceArray[index] = onlineSource(media, eachTruck)
 
-        return if (wholeSet > 1) LoopingMediaSource(
-            ConcatenatingMediaSource(*mediaSourceArray),
-            wholeSet
-        ) else ConcatenatingMediaSource(*mediaSourceArray)
+        return ConcatenatingMediaSource(*mediaSourceArray)
     }
 
     fun create(media: Media, eachTruck: Int = 1): MediaSource {
@@ -37,77 +36,47 @@ object MediaSourceBuilder {
             offlineSource(media, eachTruck)
         else
             onlineSource(media, eachTruck)
-
-
     }
 
-    fun onlineSource(
-        mediaList: List<Media>,
-        eachTruck: Int = 1,
-        wholeSet: Int = 1
-    ): MediaSource {
-        val dataSourceFactory = DefaultHttpDataSourceFactory(XplayerApplication.userAgent)
-        val mediaSourceArray = arrayOfNulls<MediaSource>(mediaList.size)
-        for (i in mediaList.indices) {
-            val media = mediaList[i]
-            val audioUri = Uri.parse(media.link)
-            val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory).setTag(media)
-                .createMediaSource(audioUri)
-
-            mediaSourceArray[i] =
-                if (eachTruck > 1) LoopingMediaSource(audioSource, eachTruck) else audioSource
-        }
-        return if (wholeSet > 1) LoopingMediaSource(
-            ConcatenatingMediaSource(*mediaSourceArray),
-            wholeSet
-        ) else ConcatenatingMediaSource(*mediaSourceArray)
-    }
-
-    fun onlineSource(
+    private fun onlineSource(
         media: Media,
         eachTruck: Int = 1,
         wholeSet: Int = 1
-    ): MediaSource {
-
-
+    ): ConcatenatingMediaSource {
         val dataSourceFactory = DefaultHttpDataSourceFactory(XplayerApplication.userAgent)
         val audioUri = Uri.parse(media.link)
+
         val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory).setTag(media)
             .createMediaSource(audioUri)
-
-        val mediaSource =
-            if (eachTruck > 1) LoopingMediaSource(audioSource, eachTruck) else audioSource
-
-        return if (wholeSet > 1) LoopingMediaSource(
-            ConcatenatingMediaSource(mediaSource),
-            wholeSet
-        ) else mediaSource
+        return ConcatenatingMediaSource(audioSource)
     }
 
-    fun offlineSource(
+    private fun offlineSource(
         media: Media,
         loopTimes: Int = 1
-    ): MediaSource {
-        val uri = DataDirectories.buildSurahFile(media).toUri()
-        val dataSpec = DataSpec(uri)
-        val fileDataSource = FileDataSource()
-        try {
-            fileDataSource.open(dataSpec)
-        } catch (e: FileDataSource.FileDataSourceException) {
-            e.printStackTrace()
-        }
-        val factoryDataSource = DataSource.Factory { fileDataSource }
-        val audioSource =
-            ProgressiveMediaSource.Factory(factoryDataSource).setTag(media).createMediaSource(uri)
+    ): ConcatenatingMediaSource {
 
-        return if (loopTimes > 1) LoopingMediaSource(audioSource, loopTimes) else audioSource
+
+        val dataSource = CacheDataSourceFactory(
+            XplayerApplication.downloadCache,
+            DataSource.Factory { FileDataSource() },
+            DataSource.Factory { FileDataSource() },
+            null,
+            0,
+            null
+        )
+
+        val mediaSource = ProgressiveMediaSource.Factory(dataSource).setTag(media)
+            .createMediaSource(Uri.parse(media.link))
+
+        return ConcatenatingMediaSource(mediaSource)
     }
 
-    fun offlineSource(
+/*    private  fun offlineSource(
         mediaList: List<Media>,
         eachTruck: Int,
         wholeSet: Int
-    ): MediaSource {
+    ): ConcatenatingMediaSource {
         val mediaSourceArray = arrayOfNulls<MediaSource>(mediaList.size)
 
         for ((index, media) in mediaList.withIndex()) {
@@ -125,10 +94,27 @@ object MediaSourceBuilder {
             mediaSourceArray[index] =
                 if (eachTruck > 1) LoopingMediaSource(audioSource, eachTruck) else audioSource
         }
-        return if (wholeSet > 1) LoopingMediaSource(
-            ConcatenatingMediaSource(*mediaSourceArray),
-            wholeSet
-        ) else ConcatenatingMediaSource(*mediaSourceArray)
-    }
+        return ConcatenatingMediaSource(*mediaSourceArray)
+    }*/
+
+/*    fun onlineSource(
+        mediaList: List<Media>,
+        eachTruck: Int = 1,
+        wholeSet: Int = 1
+    ): ConcatenatingMediaSource {
+        val dataSourceFactory = DefaultHttpDataSourceFactory(XplayerApplication.userAgent)
+        val mediaSourceArray = arrayOfNulls<MediaSource>(mediaList.size)
+        for (i in mediaList.indices) {
+            val media = mediaList[i]
+            val audioUri = Uri.parse(media.link)
+            val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory).setTag(media)
+                .createMediaSource(audioUri)
+
+            mediaSourceArray[i] =
+                if (eachTruck > 1) LoopingMediaSource(audioSource, eachTruck) else audioSource
+        }
+        return ConcatenatingMediaSource(*mediaSourceArray)
+    }*/
+
 
 }
